@@ -26,6 +26,7 @@ Boston, MA 02111-1307, USA.
 
 package org.martus.swing;
 
+import java.awt.ComponentOrientation;
 import java.awt.KeyboardFocusManager;
 import java.util.HashSet;
 import java.util.Set;
@@ -35,15 +36,21 @@ import javax.swing.KeyStroke;
 
 public class UiTextArea extends JTextArea
 {
-	public UiTextArea(int rows, int cols)
+	public UiTextArea(int rows, int cols, ComponentOrientation orientation)
 	{
 		super(rows, cols);
-		SetTabKeyForFocusEvents();
+		initalize(orientation);
 	}
 
-	public UiTextArea(String text)
+	public UiTextArea(String text, ComponentOrientation orientation)
 	{
 		super(text);
+		initalize(orientation);
+	}
+
+	private void initalize(ComponentOrientation orientation)
+	{
+		setComponentOrientation(orientation);
 		SetTabKeyForFocusEvents();
 	}
 
