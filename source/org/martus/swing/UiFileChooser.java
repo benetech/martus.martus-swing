@@ -49,8 +49,8 @@ public class UiFileChooser extends JFileChooser
 		super();
 		addPropertyChangeListener(JFileChooser.DIRECTORY_CHANGED_PROPERTY,new DirectoryChangeListener());
 		addPropertyChangeListener(JFileChooser.SELECTED_FILE_CHANGED_PROPERTY, new FileSelectedChangeListener());
-		//setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-		
+		setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+
 		if(title != null)
 			setDialogTitle(title);
 		if(currentlySelectedFile != null)
@@ -63,26 +63,25 @@ public class UiFileChooser extends JFileChooser
 			setFileFilter(filterToUse);
 	}
 	
-	static public FileDialogResults displayFileSaveDialog(Component owner, String title, File currentlySelectedFile)
+	static public FileDialogResults displayFileSaveDialog(Component owner, String title, String newFileName)
 	{
-		return displayFileSaveDialog(owner, title, currentlySelectedFile, null);
+		return displayFileSaveDialog(owner, title, createFileInUsersHomeDirectory(newFileName));
 	}
 	
-	static public FileDialogResults displayFileSaveDialog(Component owner, String title, File currentlySelectedFile, File currentDirectory)
+	static public FileDialogResults displayFileSaveDialog(Component owner, String title, File currentlySelectedFile)
 	{
-		UiFileChooser chooser = new UiFileChooser(title, currentlySelectedFile, currentDirectory, null, null);
+		UiFileChooser chooser = new UiFileChooser(title, currentlySelectedFile, null, null, null);
 		return getFileResults(chooser.showSaveDialog(owner), chooser);
 	}
 	
+	static public FileDialogResults displayFileOpenDialog(Component owner, String title, String currentlySelectedFileName)
+	{
+		return displayFileOpenDialog(owner, title, createFileInUsersHomeDirectory(currentlySelectedFileName), null, null, null);
+	}
 	
 	static public FileDialogResults displayFileOpenDialog(Component owner, String title, File currentlySelectedFile)
 	{
 		return displayFileOpenDialog(owner, title, currentlySelectedFile, null, null, null);
-	}
-
-	static public FileDialogResults displayFileOpenDialog(Component owner, String title, File currentlySelectedFile, File currentDirectory)
-	{
-		return displayFileOpenDialog(owner, title, currentlySelectedFile, currentDirectory, null, null);
 	}
 	
 	static public FileDialogResults displayFileOpenDialog(Component owner, String title, File currentlySelectedFile, File currentDirectory, String buttonLabel, FileFilter filterToUse)
@@ -131,6 +130,14 @@ public class UiFileChooser extends JFileChooser
 		private File fileChoosen;
 		private boolean cancelChoosen;
 	}
+	
+	static public File createFileInUsersHomeDirectory(String fileName)
+	{
+		File homeDir = new File(System.getProperty("user.home"));
+		if(fileName != null && fileName.length()>0)
+			return new File(homeDir, fileName);
+		return homeDir;
+	}
 
 	private class DirectoryChangeListener implements PropertyChangeListener 
 	{
@@ -161,7 +168,7 @@ public class UiFileChooser extends JFileChooser
 	void processFileSelected(PropertyChangeEvent e) 
 	{
 		File selectedFile = getSelectedFile();
-		if ( previouslySelectedFile != null && ( selectedFile == null || selectedFile.isDirectory()) ) 
+		if ( previouslySelectedFile != null && ( selectedFile == null || selectedFile.isDirectory()) )
 			setSelectedFile(previouslySelectedFile);
 		else 
 			previouslySelectedFile = getSelectedFile();
