@@ -72,16 +72,16 @@ public class UiNotifyDlg extends JDialog implements ActionListener
 				vbox.add(createWrappedTextArea(contents[i]));
 			vbox.add(new UiLabel(" "));
 			
-			ok = new JButton(buttons[0]);
+			ok = new UiButton(buttons[0]);
 			ok.addActionListener(this);
 			Box hbox = Box.createHorizontalBox();
 
 			int numberOfButtons = buttons.length;
-			JButton[] allButtons = new JButton[numberOfButtons];
+			JButton[] allButtons = new UiButton[numberOfButtons];
 			allButtons[0] = ok;
 			for(int j = 1 ; j < numberOfButtons; ++j)
 			{
-				JButton button = new JButton(buttons[j]);
+				JButton button = new UiButton(buttons[j]);
 				button.addActionListener(this);
 				allButtons[j] = button;
 			}
