@@ -27,11 +27,13 @@ Boston, MA 02111-1307, USA.
 package org.martus.swing;
 
 import java.awt.ComponentOrientation;
+import java.awt.Dimension;
 import java.awt.KeyboardFocusManager;
 import java.util.HashSet;
 import java.util.Set;
 import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
+import org.martus.util.language.LanguageOptions;
 
 public class UiTextArea extends JTextArea
 {
@@ -71,5 +73,24 @@ public class UiTextArea extends JTextArea
 	    set.add(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_TAB,
 	    		 java.awt.event.InputEvent.SHIFT_MASK));
 	    setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, set);
+	}
+
+
+	/* 
+	 * NOTE: This is a horrible hack to work around the fact that a JTextArea
+	 * seems to completely ignore any calls to setBorder or setMargin.
+	 * We need to add some space to the bottom of the field to avoid Arabic
+	 * (and even English) characters from being chopped off. 
+	 * The number of pixels is arbitrary and may need to be adjusted.
+	 */
+	public Dimension getPreferredSize()
+	{
+		if(!LanguageOptions.needsLanguagePadding())
+			return super.getPreferredSize();
+		
+		final int EXTRA_PIXELS = 7;
+		Dimension d = super.getPreferredSize();
+		d.setSize(d.getWidth(), d.getHeight() + EXTRA_PIXELS);
+		return d;
 	}
 }

@@ -30,7 +30,7 @@ import java.awt.Container;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.martus.util.language.LanguageDirection;
+import org.martus.util.language.LanguageOptions;
 
 
 public class UiParagraphPanel extends JPanel
@@ -75,7 +75,7 @@ public class UiParagraphPanel extends JPanel
 
 	public void addComponents(Component item1, Component item2)
 	{
-		if(LanguageDirection.isRightToLeftLanguage())
+		if(LanguageOptions.isRightToLeftLanguage())
 		{
 			if(!item2.isVisible())
 				add(new JLabel(""),ParagraphLayout.NEW_PARAGRAPH);

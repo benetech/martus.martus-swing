@@ -33,6 +33,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
+import org.martus.util.language.LanguageOptions;
 
 
 public class UiTable extends JTable
@@ -47,6 +48,9 @@ public class UiTable extends JTable
 		super(model);
 		setComponentOrientation(UiLanguageDirection.getComponentOrientation());
 		getTableHeader().setReorderingAllowed(false);
+		if(LanguageOptions.needsLanguagePadding())
+			setRowHeight(getRowHeight()+ROW_HEIGHT_PADDING);
+
 	}
 
 	public void resizeTable()
@@ -113,4 +117,7 @@ public class UiTable extends JTable
 		renderer.setHorizontalAlignment(UiLanguageDirection.getHorizontalAlignment());
 		return renderer;
 	}
+
+	private static final int ROW_HEIGHT_PADDING = 14;
+	
 }

@@ -28,21 +28,21 @@ package org.martus.swing;
 import java.awt.ComponentOrientation;
 import javax.swing.SwingConstants;
 
-import org.martus.util.language.LanguageDirection;
+import org.martus.util.language.LanguageOptions;
 
 
 public class UiLanguageDirection
 {
 	static public ComponentOrientation getComponentOrientation()
 	{
-		if(LanguageDirection.isRightToLeftLanguage())
+		if(LanguageOptions.isRightToLeftLanguage())
 			return ComponentOrientation.RIGHT_TO_LEFT;
 		return ComponentOrientation.LEFT_TO_RIGHT;
 	}
 	
 	static public int getHorizontalAlignment()
 	{
-		if(LanguageDirection.isRightToLeftLanguage())
+		if(LanguageOptions.isRightToLeftLanguage())
 			return SwingConstants.RIGHT;
 		return SwingConstants.LEFT;
 	}
