@@ -39,7 +39,9 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.border.EmptyBorder;
 
 import org.martus.util.TokenReplacement;
 import org.martus.util.TokenReplacement.TokenInvalidException;
@@ -62,8 +64,6 @@ public class UiNotifyDlg extends JDialog implements ActionListener
 			buttons = TokenReplacement.replaceTokens(buttons, tokenReplacement);
 			
 			setTitle(title);
-			getContentPane().add(new JLabel("      "), BorderLayout.WEST);
-			getContentPane().add(new JLabel("      "), BorderLayout.EAST);
 			
 			Box vbox = Box.createVerticalBox();
 			vbox.add(new JLabel(" "));
@@ -84,8 +84,13 @@ public class UiNotifyDlg extends JDialog implements ActionListener
 			}
 			vbox.add(hbox);
 			vbox.add(new JLabel(" "));
+		
+			JPanel panel = new JPanel();			
+			panel.setBorder(new EmptyBorder(5,5,5,5));
+			panel.add(vbox);
+
+			getContentPane().add(panel, BorderLayout.CENTER);
 			
-			getContentPane().add(vbox, BorderLayout.CENTER);
 			Utilities.centerDlg(this);
 			setResizable(true);
 			getRootPane().setDefaultButton(ok);
