@@ -89,12 +89,12 @@ public class Utilities
 	{
 		dlg.pack();
 		Dimension size = dlg.getSize();
-		Dimension viewableScreenSize = getViewableScreenSize(dlg);
+		Dimension viewableScreenSize = getViewableScreenSize();
 
 		if(size.height < viewableScreenSize.height &&
 	    	size.width < viewableScreenSize.width)
 	    {
-			Rectangle newScreen = getViewableRectangle(dlg);
+			Rectangle newScreen = getViewableRectangle();
 			dlg.setLocation(center(size, newScreen));
 	    }
 	    else
@@ -108,16 +108,16 @@ public class Utilities
 	static public void centerFrame(Window owner)
 	{
 		Dimension size = owner.getSize();
-		owner.setLocation(center(size, getViewableRectangle(owner)));
+		owner.setLocation(center(size, getViewableRectangle()));
 	}	
 	
-	static public Rectangle getViewableRectangle(Window window)
+	static public Rectangle getViewableRectangle()
 	{
 	    Insets insets = getSystemInsets();
-		return new Rectangle(new Point(insets.left, insets.top), getViewableScreenSize(window));		
+		return new Rectangle(new Point(insets.left, insets.top), getViewableScreenSize());		
 	}
 	
-	static public Dimension getViewableScreenSize(Window window)
+	static public Dimension getViewableScreenSize()
 	{
 		Dimension screenSizeExcludingToolbars = Toolkit.getDefaultToolkit().getScreenSize();
 	    Insets insets = getSystemInsets();
