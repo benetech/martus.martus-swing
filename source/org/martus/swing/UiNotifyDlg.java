@@ -27,6 +27,7 @@ Boston, MA 02111-1307, USA.
 package org.martus.swing;
 
 import java.awt.BorderLayout;
+import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -39,7 +40,6 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import org.martus.util.TokenReplacement;
 import org.martus.util.TokenReplacement.TokenInvalidException;
@@ -47,14 +47,15 @@ import org.martus.util.TokenReplacement.TokenInvalidException;
 public class UiNotifyDlg extends JDialog implements ActionListener
 {
 
-	public UiNotifyDlg(JFrame owner, String title, String[] contents, String[] buttons)
+	public UiNotifyDlg(JFrame owner, String title, String[] contents, String[] buttons, ComponentOrientation orientation)
 	{
-		this(owner, title, contents, buttons, new HashMap());
+		this(owner, title, contents, buttons, new HashMap(), orientation);
 	}
 	
-	public UiNotifyDlg(JFrame owner, String title, String[] contents, String[] buttons, Map tokenReplacement)
+	public UiNotifyDlg(JFrame owner, String title, String[] contents, String[] buttons, Map tokenReplacement, ComponentOrientation orientation)
 	{
 		super(owner, title , true);
+		setComponentOrientation(orientation);
 		try
 		{
 			title = TokenReplacement.replaceTokens(title, tokenReplacement);
@@ -64,9 +65,10 @@ public class UiNotifyDlg extends JDialog implements ActionListener
 			setTitle(title);
 			
 			Box vbox = Box.createVerticalBox();
+			vbox.setComponentOrientation(orientation);
 			vbox.add(new JLabel(" "));
 			for(int i = 0 ; i < contents.length ; ++i)
-				vbox.add(createWrappedTextArea(contents[i]));
+				vbox.add(createWrappedTextArea(contents[i], orientation));
 			vbox.add(new JLabel(" "));
 			
 			ok = new JButton(buttons[0]);
@@ -83,7 +85,8 @@ public class UiNotifyDlg extends JDialog implements ActionListener
 			vbox.add(hbox);
 			vbox.add(new JLabel(" "));
 		
-			JPanel panel = new JPanel();			
+			JPanel panel = new JPanel();	
+			panel.setComponentOrientation(orientation);
 			panel.setBorder(new EmptyBorder(5,5,5,5));
 			panel.add(vbox);
 
@@ -101,10 +104,9 @@ public class UiNotifyDlg extends JDialog implements ActionListener
 		}
 	}
 
-	private JTextArea createWrappedTextArea(String message)
+	private UiWrappedTextArea createWrappedTextArea(String message, ComponentOrientation orientation)
 	{
-//TODO:FIXTHIS CML		UiWrappedTextArea msgArea = new UiWrappedTextArea(message);
-		UiWrappedTextArea msgArea = new UiWrappedTextArea(message);
+		UiWrappedTextArea msgArea = new UiWrappedTextArea(message, orientation);
 		msgArea.addKeyListener(new TabToOkButton());
 		return msgArea;
 	}
