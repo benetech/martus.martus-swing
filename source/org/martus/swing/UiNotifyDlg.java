@@ -100,7 +100,7 @@ public class UiNotifyDlg extends JDialog implements ActionListener
 			setResizable(true);
 			getRootPane().setDefaultButton(ok);
 			ok.requestFocus(true);
-			show();
+			setVisible(true);
 		}
 		catch (TokenInvalidException e)
 		{
