@@ -41,9 +41,15 @@ import javax.swing.table.TableModel;
 
 public class UiTable extends JTable
 {
+	public UiTable()
+	{
+		this(null);
+	}
+	
 	public UiTable(TableModel model)
 	{
 		super(model);
+		setComponentOrientation(UiLanguageDirection.getComponentOrientation());
 		enableEvents(AWTEvent.FOCUS_EVENT_MASK);
 	}
 	
