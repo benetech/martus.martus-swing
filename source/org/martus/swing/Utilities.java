@@ -31,6 +31,7 @@ import java.awt.Frame;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.awt.Window;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -84,9 +85,20 @@ public class Utilities
 	{
 		dlg.pack();
 		Dimension size = dlg.getSize();
-		Rectangle screen = new Rectangle(new Point(0, 0), Toolkit.getDefaultToolkit().getScreenSize());
+		Rectangle screen = getRectangle();
 		dlg.setLocation(center(size, screen));
 	}
+	
+	static public void centerFrame(Window owner)
+	{
+		Dimension size = owner.getSize();
+		owner.setLocation(center(size, getRectangle()));
+	}	
+	
+	static public Rectangle getRectangle()
+	{
+		return new Rectangle(new Point(0, 0), Toolkit.getDefaultToolkit().getScreenSize());		
+	}	
 
 	static public Point center(Dimension inner, Rectangle outer)
 	{
