@@ -26,6 +26,7 @@ Boston, MA 02111-1307, USA.
 
 package org.martus.swing;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Point;
@@ -108,7 +109,7 @@ public class Utilities
 		return new Point(x, y);
 	}
 	
-	static public void addComponentsRespectingOrientation(JComponent component, JComponent[] itemsToAdd)
+	static public void addComponentsRespectingOrientation(JComponent component, Component[] itemsToAdd)
 	{
 		if(UiLanguageDirection.isRightToLeftLanguage())
 		{
