@@ -48,11 +48,15 @@ public class UiTable extends JTable
 		super(model);
 		setComponentOrientation(UiLanguageDirection.getComponentOrientation());
 		getTableHeader().setReorderingAllowed(false);
-		if(LanguageOptions.needsLanguagePadding())
-			setRowHeight(getRowHeight()+ROW_HEIGHT_PADDING);
-
 	}
 
+	public int getRowHeight() 
+	{
+		int defaultRowHeight = super.getRowHeight();
+		if(LanguageOptions.needsLanguagePadding())
+			return defaultRowHeight+ROW_HEIGHT_PADDING;
+		return defaultRowHeight;
+	}
 	public void resizeTable()
 	{
 		resizeTable(getModel().getRowCount());
