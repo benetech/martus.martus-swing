@@ -62,7 +62,7 @@ public class UiWrappedTextArea extends UiTextArea
 
 		// cushion for safety
 		if(messageLength > maxChars)
-			++rows;
+			rows+=2;
 
 		setRows(rows);
 		setColumns(cols);
