@@ -57,8 +57,8 @@ public class UiTable extends JTable
 	public void resizeTable(int rowCount)
 	{
 		Dimension d = getPreferredScrollableViewportSize();
-		int rowHeight = getRowHeight() + getRowMargin() ;
-		d.height = rowCount * rowHeight;
+		int constantRowHeight = getRowHeight() + getRowMargin() ;
+		d.height = rowCount * constantRowHeight;
 		setPreferredScrollableViewportSize(d);
 	}
 	
