@@ -31,14 +31,14 @@ import javax.swing.JComboBox;
 import javax.swing.JList;
 
 
-public class UiJComboBox extends JComboBox
+public class UiComboBox extends JComboBox
 {
-	public UiJComboBox()
+	public UiComboBox()
 	{
 		setComponentOrienation();
 	}
 	
-	public UiJComboBox(Object[] items)
+	public UiComboBox(Object[] items)
 	{
 		super(items);
 		setComponentOrienation();
