@@ -28,6 +28,7 @@ package org.martus.swing;
 import java.awt.Component;
 import java.awt.Container;
 
+import javax.swing.Box;
 import javax.swing.JPanel;
 
 import org.martus.util.language.LanguageOptions;
@@ -77,10 +78,15 @@ public class UiParagraphPanel extends JPanel
 	{
 		if(LanguageOptions.isRightToLeftLanguage())
 		{
-			if(!item2.isVisible())
-				add(new UiLabel(""),ParagraphLayout.NEW_PARAGRAPH);
-			else
+			if(item2.isVisible())
 				add(item2, ParagraphLayout.NEW_PARAGRAPH);
+			else
+			{
+				Box hBox = Box.createHorizontalBox();
+				hBox.add(new UiLabel(""));
+				hBox.add(item2);
+				add(hBox, ParagraphLayout.NEW_PARAGRAPH);
+			}
 			add(item1);
 		}
 		else
