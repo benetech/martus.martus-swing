@@ -25,13 +25,9 @@ Boston, MA 02111-1307, USA.
 */
 package org.martus.swing;
 
-import java.awt.AWTEvent;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.event.FocusEvent;
-import javax.swing.CellEditor;
 import javax.swing.JTable;
-import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
@@ -50,31 +46,7 @@ public class UiTable extends JTable
 	{
 		super(model);
 		setComponentOrientation(UiLanguageDirection.getComponentOrientation());
-		enableEvents(AWTEvent.FOCUS_EVENT_MASK);
 		getTableHeader().setReorderingAllowed(false);
-	}
-	
-	// These are needed to work around a horrible quirk in swing:
-	// If an editor is active when the table loses focus, or column resized,
-	// the editing is not stopped, so the edits are lost.
-	// We avoid this by stopping editing whenever we lose focus.
-	protected void processFocusEvent(FocusEvent e) 
-	{
-		saveCellContents();
-		super.processFocusEvent(e);
-	}
-
-	public void columnMarginChanged(ChangeEvent e)
-	{
-		saveCellContents();
-		super.columnMarginChanged(e);
-	}
-	
-	private void saveCellContents()
-	{
-		CellEditor editor = getCellEditor();
-		if(editor != null)
-			editor.stopCellEditing();
 	}
 
 	public void resizeTable()
