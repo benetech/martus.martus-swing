@@ -33,13 +33,14 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import org.martus.util.TokenReplacement;
 import org.martus.util.TokenReplacement.TokenInvalidException;
 
@@ -66,10 +67,10 @@ public class UiNotifyDlg extends JDialog implements ActionListener
 			
 			Box vbox = Box.createVerticalBox();
 			vbox.setComponentOrientation(UiLanguageDirection.getComponentOrientation());
-			vbox.add(new JLabel(" "));
+			vbox.add(new UiLabel(" "));
 			for(int i = 0 ; i < contents.length ; ++i)
 				vbox.add(createWrappedTextArea(contents[i]));
-			vbox.add(new JLabel(" "));
+			vbox.add(new UiLabel(" "));
 			
 			ok = new JButton(buttons[0]);
 			ok.addActionListener(this);
@@ -87,7 +88,7 @@ public class UiNotifyDlg extends JDialog implements ActionListener
 			Utilities.addComponentsRespectingOrientation(hbox, allButtons);
 			
 			vbox.add(hbox);
-			vbox.add(new JLabel(" "));
+			vbox.add(new UiLabel(" "));
 		
 			JPanel panel = new JPanel();	
 			panel.setComponentOrientation(UiLanguageDirection.getComponentOrientation());

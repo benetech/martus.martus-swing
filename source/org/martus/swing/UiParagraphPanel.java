@@ -27,7 +27,7 @@ package org.martus.swing;
 
 import java.awt.Component;
 import java.awt.Container;
-import javax.swing.JLabel;
+
 import javax.swing.JPanel;
 
 import org.martus.util.language.LanguageOptions;
@@ -60,17 +60,17 @@ public class UiParagraphPanel extends JPanel
 	
 	public void addBlankLine()
 	{
-		addOnNewLine(new JLabel(""));
+		addOnNewLine(new UiLabel(""));
 	}
 
 	public void addOnNewLine(Component itemToAdd)
 	{
-		addComponents(new JLabel(""), itemToAdd);
+		addComponents(new UiLabel(""), itemToAdd);
 	}
 
 	public void addLabelOnly(Component itemToAdd)
 	{
-		addComponents(itemToAdd, new JLabel(""));
+		addComponents(itemToAdd, new UiLabel(""));
 	}
 
 	public void addComponents(Component item1, Component item2)
@@ -78,7 +78,7 @@ public class UiParagraphPanel extends JPanel
 		if(LanguageOptions.isRightToLeftLanguage())
 		{
 			if(!item2.isVisible())
-				add(new JLabel(""),ParagraphLayout.NEW_PARAGRAPH);
+				add(new UiLabel(""),ParagraphLayout.NEW_PARAGRAPH);
 			else
 				add(item2, ParagraphLayout.NEW_PARAGRAPH);
 			add(item1);
