@@ -51,6 +51,7 @@ public class UiTable extends JTable
 		super(model);
 		setComponentOrientation(UiLanguageDirection.getComponentOrientation());
 		enableEvents(AWTEvent.FOCUS_EVENT_MASK);
+		getTableHeader().setReorderingAllowed(false);
 	}
 	
 	// These are needed to work around a horrible quirk in swing:
