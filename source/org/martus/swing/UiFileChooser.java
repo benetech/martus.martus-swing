@@ -65,7 +65,7 @@ public class UiFileChooser extends JFileChooser
 	
 	static public FileDialogResults displayFileSaveDialog(Component owner, String title, String newFileName)
 	{
-		return displayFileSaveDialog(owner, title, createFileInUsersHomeDirectory(newFileName));
+		return displayFileSaveDialog(owner, title, getHomeDirectoryFile(newFileName));
 	}
 	
 	static public FileDialogResults displayFileSaveDialog(Component owner, String title, File currentlySelectedFile)
@@ -76,7 +76,7 @@ public class UiFileChooser extends JFileChooser
 	
 	static public FileDialogResults displayFileOpenDialog(Component owner, String title, String currentlySelectedFileName)
 	{
-		return displayFileOpenDialog(owner, title, createFileInUsersHomeDirectory(currentlySelectedFileName), null, null, null);
+		return displayFileOpenDialog(owner, title, getHomeDirectoryFile(currentlySelectedFileName), null, null, null);
 	}
 	
 	static public FileDialogResults displayFileOpenDialog(Component owner, String title, File currentlySelectedFile)
@@ -131,7 +131,7 @@ public class UiFileChooser extends JFileChooser
 		private boolean cancelChoosen;
 	}
 	
-	static public File createFileInUsersHomeDirectory(String fileName)
+	static public File getHomeDirectoryFile(String fileName)
 	{
 		File homeDir = new File(System.getProperty("user.home"));
 		if(fileName != null && fileName.length()>0)
