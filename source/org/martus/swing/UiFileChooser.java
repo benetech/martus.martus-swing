@@ -26,11 +26,13 @@ Boston, MA 02111-1307, USA.
 
 package org.martus.swing;
 
+import java.awt.Component;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
 
 //This implementation is needed because of a Java bug 
 //which by clicking on a directory changes the file name 
@@ -38,14 +40,99 @@ import javax.swing.JFileChooser;
 
 public class UiFileChooser extends JFileChooser
 {
-	public UiFileChooser()
+	private UiFileChooser()
+	{
+	}
+
+	private UiFileChooser(String title, File currentlySelectedFile, File currentDirectory, String buttonLabel, FileFilter filterToUse)
 	{
 		super();
 		addPropertyChangeListener(JFileChooser.DIRECTORY_CHANGED_PROPERTY,new DirectoryChangeListener());
 		addPropertyChangeListener(JFileChooser.SELECTED_FILE_CHANGED_PROPERTY, new FileSelectedChangeListener());
+		//setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+		
+		if(title != null)
+			setDialogTitle(title);
+		if(currentlySelectedFile != null)
+			setSelectedFile(currentlySelectedFile);
+		if(currentDirectory != null)
+			setCurrentDirectory(currentDirectory);
+		if(buttonLabel != null)
+			setApproveButtonText(buttonLabel);
+		if(filterToUse != null)
+			setFileFilter(filterToUse);
+	}
+	
+	static public FileDialogResults displayFileSaveDialog(Component owner, String title, File currentlySelectedFile)
+	{
+		return displayFileSaveDialog(owner, title, currentlySelectedFile, null);
+	}
+	
+	static public FileDialogResults displayFileSaveDialog(Component owner, String title, File currentlySelectedFile, File currentDirectory)
+	{
+		UiFileChooser chooser = new UiFileChooser(title, currentlySelectedFile, currentDirectory, null, null);
+		return getFileResults(chooser.showSaveDialog(owner), chooser);
+	}
+	
+	
+	static public FileDialogResults displayFileOpenDialog(Component owner, String title, File currentlySelectedFile)
+	{
+		return displayFileOpenDialog(owner, title, currentlySelectedFile, null, null, null);
 	}
 
-	class DirectoryChangeListener implements PropertyChangeListener 
+	static public FileDialogResults displayFileOpenDialog(Component owner, String title, File currentlySelectedFile, File currentDirectory)
+	{
+		return displayFileOpenDialog(owner, title, currentlySelectedFile, currentDirectory, null, null);
+	}
+	
+	static public FileDialogResults displayFileOpenDialog(Component owner, String title, File currentlySelectedFile, File currentDirectory, String buttonLabel, FileFilter filterToUse)
+	{
+		UiFileChooser chooser = new UiFileChooser(title, currentlySelectedFile, currentDirectory, buttonLabel, filterToUse);
+		return getFileResults(chooser.showOpenDialog(owner), chooser);
+	}
+	
+	private static FileDialogResults getFileResults(int result, UiFileChooser chooser)
+	{
+		if(result != JFileChooser.APPROVE_OPTION)
+			return new FileDialogResults();
+		return new FileDialogResults(chooser.getSelectedFile(), false);
+	}
+
+	static public class FileDialogResults
+	{
+		FileDialogResults()
+		{
+			this(null, true);
+		}
+		
+		FileDialogResults(File fileChoosenToUse, boolean wasCancelChoosen)
+		{
+			cancelChoosen = wasCancelChoosen;
+			fileChoosen = fileChoosenToUse;
+		}
+		
+		public boolean wasCancelChoosen()
+		{
+			return cancelChoosen;
+		}
+
+		public File getFileChoosen()
+		{
+			return fileChoosen;
+		}
+		
+		public File getCurrentDirectory()
+		{
+			if(fileChoosen == null)
+				return null;
+			return fileChoosen.getParentFile();
+		}
+
+		private File fileChoosen;
+		private boolean cancelChoosen;
+	}
+
+	private class DirectoryChangeListener implements PropertyChangeListener 
 	{
 		public void propertyChange(PropertyChangeEvent e) 
 		{
@@ -53,7 +140,7 @@ public class UiFileChooser extends JFileChooser
 		}
 	}
 
-	public void processDirChanged(PropertyChangeEvent e) 
+	void processDirChanged(PropertyChangeEvent e) 
 	{
 		if ( previouslySelectedFile == null )
 			return; 
@@ -63,7 +150,7 @@ public class UiFileChooser extends JFileChooser
 		setSelectedFile(previouslySelectedFile);
 	}
 
-	class FileSelectedChangeListener implements PropertyChangeListener
+	private class FileSelectedChangeListener implements PropertyChangeListener
 	{
 		public void propertyChange(PropertyChangeEvent e) 
 		{
@@ -71,7 +158,7 @@ public class UiFileChooser extends JFileChooser
 		}
 	}
 	
-	public void processFileSelected(PropertyChangeEvent e) 
+	void processFileSelected(PropertyChangeEvent e) 
 	{
 		File selectedFile = getSelectedFile();
 		if ( previouslySelectedFile != null && ( selectedFile == null || selectedFile.isDirectory()) ) 
@@ -80,5 +167,5 @@ public class UiFileChooser extends JFileChooser
 			previouslySelectedFile = getSelectedFile();
 	} 
 
-	public File previouslySelectedFile = null;
+	private File previouslySelectedFile = null;
 }
