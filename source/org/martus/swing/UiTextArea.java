@@ -26,6 +26,7 @@ Boston, MA 02111-1307, USA.
 
 package org.martus.swing;
 
+import java.awt.ComponentOrientation;
 import java.awt.KeyboardFocusManager;
 import java.util.HashSet;
 import java.util.Set;
@@ -48,7 +49,15 @@ public class UiTextArea extends JTextArea
 
 	private void initalize()
 	{
-		setComponentOrientation(UiLanguageDirection.getComponentOrientation());
+		ComponentOrientation languageOrientation = UiLanguageDirection.getComponentOrientation();
+		setComponentOrientation(languageOrientation);
+		if(languageOrientation == ComponentOrientation.RIGHT_TO_LEFT && getText().length()==0)
+		{
+			//Bug in Java's JTextArea
+			//When orientation is Right to Left, the cursor is not Right justified in an empty JTextArea.
+			setText(" ");
+			setText("");
+		}
 		SetTabKeyForFocusEvents();
 	}
 
