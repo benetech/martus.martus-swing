@@ -128,15 +128,12 @@ public class UiNotifyDlg extends JDialog implements ActionListener
 
 	public void actionPerformed(ActionEvent ae)
 	{
-		exit();
+		exit(ae);
 	}
 
-	public void exit()
+	public void exit(ActionEvent ae)
 	{
-		if(ok.hasFocus())
-			result = ok.getText();
-		else
-			result = "";
+		result = ae.getActionCommand();
 		dispose();
 	}
 
