@@ -41,6 +41,8 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
+import org.martus.util.language.LanguageDirection;
+
 public class Utilities 
 {
 	static public boolean isMacintosh()
@@ -143,7 +145,7 @@ public class Utilities
 	
 	static public void addComponentsRespectingOrientation(JComponent component, Component[] itemsToAdd)
 	{
-		if(UiLanguageDirection.isRightToLeftLanguage())
+		if(LanguageDirection.isRightToLeftLanguage())
 		{
 			for(int i = itemsToAdd.length -1; i >= 0; --i)
 				component.add(itemsToAdd[i]);
