@@ -23,45 +23,42 @@ Software Foundation, Inc., 59 Temple Place - Suite 330,
 Boston, MA 02111-1307, USA.
 
 */
-
 package org.martus.swing;
 
-import java.awt.KeyboardFocusManager;
-import java.util.HashSet;
-import java.util.Set;
+import java.awt.ComponentOrientation;
+import javax.swing.SwingConstants;
 
-import javax.swing.JTextArea;
-import javax.swing.KeyStroke;
 
-public class UiTextArea extends JTextArea
+public class UiLanguageDirection
 {
-	public UiTextArea(int rows, int cols)
+	public static void setDirection(int directionToUse)
 	{
-		super(rows, cols);
-		initalize();
+		direction = directionToUse;
+	}
+	
+	static public ComponentOrientation getComponentOrientation()
+	{
+		if(isRightToLeftLanguage())
+			return ComponentOrientation.RIGHT_TO_LEFT;
+		return ComponentOrientation.LEFT_TO_RIGHT;
+	}
+	
+	static public int getHorizontalAlignment()
+	{
+		if(isRightToLeftLanguage())
+			return SwingConstants.RIGHT;
+		return SwingConstants.LEFT;
 	}
 
-	public UiTextArea(String text)
+	static public boolean isRightToLeftLanguage()
 	{
-		super(text);
-		initalize();
+		if(direction == RIGHT_TO_LEFT)
+			return true;
+		return false;
 	}
-
-	private void initalize()
-	{
-		setComponentOrientation(UiLanguageDirection.getComponentOrientation());
-		SetTabKeyForFocusEvents();
-	}
-
-	private void SetTabKeyForFocusEvents()
-	{
-		Set set = new HashSet(getFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS));
-	    set.clear();
-	    set.add(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_TAB, 0));
-	    setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, set);
-	    set.clear();
-	    set.add(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_TAB,
-	    		 java.awt.event.InputEvent.SHIFT_MASK));
-	    setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, set);
-	}
+	
+	static public final int LEFT_TO_RIGHT = 0;
+	static public final int RIGHT_TO_LEFT = 1;
+	
+	static private int direction;
 }

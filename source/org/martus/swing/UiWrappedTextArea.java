@@ -26,21 +26,20 @@ Boston, MA 02111-1307, USA.
 
 package org.martus.swing;
 
-import java.awt.ComponentOrientation;
 import javax.swing.JFrame;
 
 public class UiWrappedTextArea extends UiTextArea
 {
-	public UiWrappedTextArea(String message, ComponentOrientation orientation)
+	public UiWrappedTextArea(String message)
 	{
-		this(message, 80, orientation);
+		this(message, 80);
 	}
 
 
-	public UiWrappedTextArea(String message, int maxChars, ComponentOrientation orientation)
+	public UiWrappedTextArea(String message, int maxChars)
 	{
-		super(message, orientation);
-		setComponentOrientation(orientation);
+		super(message);
+		setComponentOrientation(UiLanguageDirection.getComponentOrientation());
 		int messageLength = message.length();
 		int cols = messageLength;
 		int rows = 1;

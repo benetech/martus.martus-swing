@@ -27,7 +27,6 @@ Boston, MA 02111-1307, USA.
 package org.martus.swing;
 
 import java.awt.BorderLayout;
-import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -44,18 +43,19 @@ import javax.swing.border.EmptyBorder;
 import org.martus.util.TokenReplacement;
 import org.martus.util.TokenReplacement.TokenInvalidException;
 
+
 public class UiNotifyDlg extends JDialog implements ActionListener
 {
 
-	public UiNotifyDlg(JFrame owner, String title, String[] contents, String[] buttons, ComponentOrientation orientation)
+	public UiNotifyDlg(JFrame owner, String title, String[] contents, String[] buttons)
 	{
-		this(owner, title, contents, buttons, new HashMap(), orientation);
+		this(owner, title, contents, buttons, new HashMap());
 	}
 	
-	public UiNotifyDlg(JFrame owner, String title, String[] contents, String[] buttons, Map tokenReplacement, ComponentOrientation orientation)
+	public UiNotifyDlg(JFrame owner, String title, String[] contents, String[] buttons, Map tokenReplacement)
 	{
 		super(owner, title , true);
-		setComponentOrientation(orientation);
+		setComponentOrientation(UiLanguageDirection.getComponentOrientation());
 		try
 		{
 			title = TokenReplacement.replaceTokens(title, tokenReplacement);
@@ -65,10 +65,10 @@ public class UiNotifyDlg extends JDialog implements ActionListener
 			setTitle(title);
 			
 			Box vbox = Box.createVerticalBox();
-			vbox.setComponentOrientation(orientation);
+			vbox.setComponentOrientation(UiLanguageDirection.getComponentOrientation());
 			vbox.add(new JLabel(" "));
 			for(int i = 0 ; i < contents.length ; ++i)
-				vbox.add(createWrappedTextArea(contents[i], orientation));
+				vbox.add(createWrappedTextArea(contents[i]));
 			vbox.add(new JLabel(" "));
 			
 			ok = new JButton(buttons[0]);
@@ -86,7 +86,7 @@ public class UiNotifyDlg extends JDialog implements ActionListener
 			vbox.add(new JLabel(" "));
 		
 			JPanel panel = new JPanel();	
-			panel.setComponentOrientation(orientation);
+			panel.setComponentOrientation(UiLanguageDirection.getComponentOrientation());
 			panel.setBorder(new EmptyBorder(5,5,5,5));
 			panel.add(vbox);
 
@@ -104,9 +104,9 @@ public class UiNotifyDlg extends JDialog implements ActionListener
 		}
 	}
 
-	private UiWrappedTextArea createWrappedTextArea(String message, ComponentOrientation orientation)
+	private UiWrappedTextArea createWrappedTextArea(String message)
 	{
-		UiWrappedTextArea msgArea = new UiWrappedTextArea(message, orientation);
+		UiWrappedTextArea msgArea = new UiWrappedTextArea(message);
 		msgArea.addKeyListener(new TabToOkButton());
 		return msgArea;
 	}
