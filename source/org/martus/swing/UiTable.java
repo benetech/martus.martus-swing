@@ -62,29 +62,48 @@ public class UiTable extends JTable
 		setPreferredScrollableViewportSize(d);
 	}
 	
-	static public void setMaxColumnWidthToHeaderWidth(JTable table, int column)
+	public void setMaxColumnWidthToHeaderWidth(int column)
 	{
-		int width = setColumnWidthToHeaderWidth(table, column);
-		table.getColumnModel().getColumn(column).setMaxWidth(width);
+		setColumnMaxWidth(column, getColumnHeaderWidth(column));
 	}
 
-	static public int setColumnWidthToHeaderWidth(JTable table, int column)
+	public void setColumnWidthToHeaderWidth(int column)
 	{
-		TableColumn columnToAdjust = table.getColumnModel().getColumn(column);
+		setColumnWidth(column, getColumnHeaderWidth(column));
+	}
+
+	protected void setColumnMaxWidth(int column, int width) 
+	{
+		setColumnWidth(column, width);
+		getColumnModel().getColumn(column).setMaxWidth(width);
+	}
+	
+	protected void setColumnWidth(int column, int width) 
+	{
+		TableColumn columnToAdjust = getColumnModel().getColumn(column);
+		columnToAdjust.setPreferredWidth(width);
+		columnToAdjust.setWidth(width);
+	}
+
+	public int getColumnHeaderWidth(int column) 
+	{
+		TableColumn columnToAdjust = getColumnModel().getColumn(column);
 		String padding = "    ";
 		String value = (String)columnToAdjust.getHeaderValue() + padding;
+		return getRenderedWidth(column, value);
+	}
 
+	protected int getRenderedWidth(int column, String value) 
+	{
+		TableColumn columnToAdjust = getColumnModel().getColumn(column);
 		TableCellRenderer renderer = columnToAdjust.getHeaderRenderer();
 		if(renderer == null)
 		{
-			JTableHeader header = table.getTableHeader();
+			JTableHeader header = getTableHeader();
 			renderer = header.getDefaultRenderer();
 		}
-		Component c = renderer.getTableCellRendererComponent(table, value, true, true, -1, column);
+		Component c = renderer.getTableCellRendererComponent(this, value, true, true, -1, column);
 		int width = c.getPreferredSize().width;
-
-		columnToAdjust.setPreferredWidth(width);
-		columnToAdjust.setWidth(width);
 		return width;
 	}
 
