@@ -39,22 +39,33 @@ public class UiLabel extends JLabel
 	public UiLabel()
 	{
 		super();
+		setOrientation();
 	}
 	
 	public UiLabel(String text)
 	{
 		super(text);
+		setOrientation();
 	}
-	
+
 	public UiLabel(String text, int alignment)
 	{
 		super(text, alignment);
+		setOrientation();
 	}
 	
 	public UiLabel(String text, Icon icon, int alignment)
 	{
 		super(text, icon, alignment);
+		setOrientation();
 	}
+
+	private void setOrientation()
+	{
+		setComponentOrientation(UiLanguageDirection.getComponentOrientation());
+		setHorizontalAlignment(UiLanguageDirection.getHorizontalAlignment());
+	}
+	
 
 	/* 
 	 * This is copied from the horrible hack in JTextArea.
