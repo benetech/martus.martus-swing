@@ -38,6 +38,7 @@ public class UiTable extends JTable
 		super(model);
 	}
 	
+	
 	public void resizeTable()
 	{
 		resizeTable(getModel().getRowCount());
@@ -50,5 +51,5 @@ public class UiTable extends JTable
 		d.height = rowCount * rowHeight;
 		setPreferredScrollableViewportSize(d);
 	}
-	
+
 }
