@@ -33,7 +33,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -42,7 +41,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
-
 import org.martus.util.TokenReplacement;
 import org.martus.util.TokenReplacement.TokenInvalidException;
 
@@ -105,6 +103,7 @@ public class UiNotifyDlg extends JDialog implements ActionListener
 
 	private JTextArea createWrappedTextArea(String message)
 	{
+//TODO:FIXTHIS CML		UiWrappedTextArea msgArea = new UiWrappedTextArea(message);
 		UiWrappedTextArea msgArea = new UiWrappedTextArea(message);
 		msgArea.addKeyListener(new TabToOkButton());
 		return msgArea;
