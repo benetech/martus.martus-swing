@@ -29,9 +29,9 @@ import java.awt.AWTEvent;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.FocusEvent;
-
 import javax.swing.CellEditor;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
@@ -97,6 +97,23 @@ public class UiTable extends JTable
 		statusColumn.setPreferredWidth(size.width);
 		statusColumn.setMaxWidth(size.width);
 	}
-	
 
+	private class UiTableCellRenderer extends DefaultTableCellRenderer
+	{
+			public Component getTableCellRendererComponent(JTable table,
+				Object value, boolean isSelected, boolean hasFocus, int row,
+				int column)
+		{
+				setHorizontalAlignment(UiLanguageDirection.getHorizontalAlignment());
+				return super.getTableCellRendererComponent(table, value,
+					isSelected, hasFocus, row, column);
+		}
+	}
+	
+			
+	public TableCellRenderer getCellRenderer(int row, int column)
+	{
+		//TODO don't create a new one each time.
+		return new UiTableCellRenderer();
+	}
 }
