@@ -179,5 +179,6 @@ public class UiFileChooser extends JFileChooser
 			previouslySelectedFile = getSelectedFile();
 	} 
 
+	static public final String NO_FILE_SELECTED = " ";
 	private File previouslySelectedFile = null;
 }
