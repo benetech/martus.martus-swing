@@ -29,7 +29,6 @@ package org.martus.swing;
 import java.awt.KeyboardFocusManager;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 

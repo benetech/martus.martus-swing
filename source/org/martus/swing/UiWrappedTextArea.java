@@ -39,7 +39,6 @@ public class UiWrappedTextArea extends UiTextArea
 	public UiWrappedTextArea(String message, int maxChars)
 	{
 		super(message);
-		setComponentOrientation(UiLanguageDirection.getComponentOrientation());
 		int messageLength = message.length();
 		int cols = messageLength;
 		int rows = 1;
