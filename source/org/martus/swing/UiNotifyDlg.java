@@ -93,8 +93,7 @@ public class UiNotifyDlg extends JDialog implements ActionListener
 			panel.setComponentOrientation(UiLanguageDirection.getComponentOrientation());
 			panel.setBorder(new EmptyBorder(5,5,5,5));
 			panel.add(vbox);
-
-			getContentPane().add(panel, BorderLayout.CENTER);
+			getContentPane().add(new UiScrollPane(panel), BorderLayout.CENTER);
 			
 			Utilities.centerDlg(this);
 			setResizable(true);
