@@ -25,9 +25,14 @@ Boston, MA 02111-1307, USA.
 */
 package org.martus.swing;
 
+import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.swing.JTable;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
 
@@ -51,5 +56,26 @@ public class UiTable extends JTable
 		d.height = rowCount * rowHeight;
 		setPreferredScrollableViewportSize(d);
 	}
+	
+	static public void setColumnWidthToHeaderWidth(JTable table, int column)
+	{
+		TableColumnModel columnModel = table.getColumnModel();
+		TableColumn statusColumn = columnModel.getColumn(column);
+		String padding = "    ";
+		String value = (String)statusColumn.getHeaderValue() + padding;
+
+		TableCellRenderer renderer = statusColumn.getHeaderRenderer();
+		if(renderer == null)
+		{
+			JTableHeader header = table.getTableHeader();
+			renderer = header.getDefaultRenderer();
+		}
+		Component c = renderer.getTableCellRendererComponent(table, value, true, true, -1, column);
+		Dimension size = c.getPreferredSize();
+
+		statusColumn.setPreferredWidth(size.width);
+		statusColumn.setMaxWidth(size.width);
+	}
+	
 
 }
