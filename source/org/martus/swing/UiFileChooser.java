@@ -72,6 +72,12 @@ public class UiFileChooser extends JFileChooser
 		return displayFileSaveDialog(owner, title, getHomeDirectoryFile(newFileName));
 	}
 	
+	static public FileDialogResults displayFileSaveDialog(Component owner, String title, File currentlyDirectory, FileFilter filterToUse)
+	{
+		UiFileChooser chooser = new UiFileChooser(title, null, currentlyDirectory, null, filterToUse);
+		return getFileResults(chooser.showSaveDialog(owner), chooser);
+	}
+
 	static public FileDialogResults displayFileSaveDialog(Component owner, String title, File currentlySelectedFile)
 	{
 		UiFileChooser chooser = new UiFileChooser(title, currentlySelectedFile, null, null, null);
