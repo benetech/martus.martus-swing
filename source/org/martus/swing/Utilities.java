@@ -100,7 +100,7 @@ public class Utilities
 	    else
 	    {
 		    dlg.setSize(viewableScreenSize);
-		    Insets insets = getInsets(dlg);
+		    Insets insets = getSystemInsets();
 		    dlg.setLocation(insets.left, insets.top);
 	    }
 	}
@@ -113,22 +113,23 @@ public class Utilities
 	
 	static public Rectangle getViewableRectangle(Window window)
 	{
-	    Insets insets = getInsets(window);
+	    Insets insets = getSystemInsets();
 		return new Rectangle(new Point(insets.left, insets.top), getViewableScreenSize(window));		
 	}
 	
 	static public Dimension getViewableScreenSize(Window window)
 	{
 		Dimension screenSizeExcludingToolbars = Toolkit.getDefaultToolkit().getScreenSize();
-	    Insets insets = getInsets(window);
+	    Insets insets = getSystemInsets();
 	    screenSizeExcludingToolbars.width -= (insets.left + insets.right);
 	    screenSizeExcludingToolbars.height -= (insets.top + insets.bottom);
 	    return screenSizeExcludingToolbars;
 	}
 
-	private static Insets getInsets(Window dialog)
+	private static Insets getSystemInsets()
 	{
-		GraphicsConfiguration graphicsConfig = dialog.getGraphicsConfiguration();
+		JFrame tmpFrame = new JFrame();
+		GraphicsConfiguration graphicsConfig = tmpFrame.getGraphicsConfiguration();
 	    Insets insets = Toolkit.getDefaultToolkit().getScreenInsets(graphicsConfig);
 		return insets;
 	}
