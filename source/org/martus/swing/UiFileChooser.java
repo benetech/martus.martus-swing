@@ -40,6 +40,7 @@ public class UiFileChooser extends JFileChooser
 {
 	public UiFileChooser()
 	{
+		super();
 		addPropertyChangeListener(JFileChooser.DIRECTORY_CHANGED_PROPERTY,new DirectoryChangeListener());
 		addPropertyChangeListener(JFileChooser.SELECTED_FILE_CHANGED_PROPERTY, new FileSelectedChangeListener());
 	}
