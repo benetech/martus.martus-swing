@@ -26,6 +26,7 @@ Boston, MA 02111-1307, USA.
 package org.martus.swing;
 
 import java.awt.Component;
+import java.awt.Container;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -39,9 +40,20 @@ public class UiParagraphPanel extends JPanel
 		setComponentOrientation(UiLanguageDirection.getComponentOrientation());
 	}
 	
-	public ParagraphLayout getParagraphLayout()
+	
+	public void outdentFirstField()
 	{
-		return (ParagraphLayout)getLayout();
+		getParagraphLayout().outdentFirstField();
+	}
+	
+	public int getFirstColumnMaxWidth(Container target)
+	{
+		return getParagraphLayout().getFirstColumnMaxWidth(target);
+	}
+	
+	public void setFirstColumnWidth(int width)
+	{
+		getParagraphLayout().setFirstColumnWidth(width);
 	}
 	
 	public void addBlankLine()
@@ -69,5 +81,10 @@ public class UiParagraphPanel extends JPanel
 			add(item1, ParagraphLayout.NEW_PARAGRAPH);
 			add(item2);
 		}
+	}
+
+	private ParagraphLayout getParagraphLayout()
+	{
+		return ((ParagraphLayout)getLayout());
 	}
 }
