@@ -33,6 +33,7 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.Window;
 
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
@@ -105,6 +106,21 @@ public class Utilities
 		int x = (outer.width - inner.width) / 2;
 		int y = (outer.height - inner.height) / 2;
 		return new Point(x, y);
+	}
+	
+	static public void addComponentsRespectingOrientation(JComponent component, JComponent[] itemsToAdd)
+	{
+		if(UiLanguageDirection.isRightToLeftLanguage())
+		{
+			for(int i = itemsToAdd.length -1; i >= 0; --i)
+				component.add(itemsToAdd[i]);
+		}
+		else
+		{
+			for(int i = 0; i < itemsToAdd.length; ++i)
+				component.add(itemsToAdd[i]);
+		}
+		
 	}
 
 	public static class Delay extends Thread

@@ -47,6 +47,7 @@ public class UiFileChooser extends JFileChooser
 	private UiFileChooser(String title, File currentlySelectedFile, File currentDirectory, String buttonLabel, FileFilter filterToUse)
 	{
 		super();
+		setComponentOrientation(UiLanguageDirection.getComponentOrientation());
 		addPropertyChangeListener(JFileChooser.DIRECTORY_CHANGED_PROPERTY,new DirectoryChangeListener());
 		addPropertyChangeListener(JFileChooser.SELECTED_FILE_CHANGED_PROPERTY, new FileSelectedChangeListener());
 		setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);

@@ -74,14 +74,18 @@ public class UiNotifyDlg extends JDialog implements ActionListener
 			ok = new JButton(buttons[0]);
 			ok.addActionListener(this);
 			Box hbox = Box.createHorizontalBox();
-			hbox.add(ok);
-			JButton button = null;
-			for(int j = 1 ; j < buttons.length; ++j)
+
+			int numberOfButtons = buttons.length;
+			JButton[] allButtons = new JButton[numberOfButtons];
+			allButtons[0] = ok;
+			for(int j = 1 ; j < numberOfButtons; ++j)
 			{
-				button = new JButton(buttons[j]);
+				JButton button = new JButton(buttons[j]);
 				button.addActionListener(this);
-				hbox.add(button);
+				allButtons[j] = button;
 			}
+			Utilities.addComponentsRespectingOrientation(hbox, allButtons);
+			
 			vbox.add(hbox);
 			vbox.add(new JLabel(" "));
 		

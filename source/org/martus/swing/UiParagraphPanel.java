@@ -66,6 +66,11 @@ public class UiParagraphPanel extends JPanel
 		addComponents(new JLabel(""), itemToAdd);
 	}
 
+	public void addLabelOnly(Component itemToAdd)
+	{
+		addComponents(itemToAdd, new JLabel(""));
+	}
+
 	public void addComponents(Component item1, Component item2)
 	{
 		if(UiLanguageDirection.isRightToLeftLanguage())
