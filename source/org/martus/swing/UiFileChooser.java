@@ -50,13 +50,16 @@ public class UiFileChooser extends JFileChooser
 		addPropertyChangeListener(JFileChooser.DIRECTORY_CHANGED_PROPERTY,new DirectoryChangeListener());
 		addPropertyChangeListener(JFileChooser.SELECTED_FILE_CHANGED_PROPERTY, new FileSelectedChangeListener());
 		setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-
 		if(title != null)
 			setDialogTitle(title);
+
 		if(currentlySelectedFile != null)
 			setSelectedFile(currentlySelectedFile);
 		if(currentDirectory != null)
 			setCurrentDirectory(currentDirectory);
+		if(currentlySelectedFile == null && currentDirectory == null)
+			setCurrentDirectory(getHomeDirectoryFile());
+		
 		if(buttonLabel != null)
 			setApproveButtonText(buttonLabel);
 		if(filterToUse != null)
@@ -82,6 +85,11 @@ public class UiFileChooser extends JFileChooser
 	static public FileDialogResults displayFileOpenDialog(Component owner, String title, File currentlySelectedFile)
 	{
 		return displayFileOpenDialog(owner, title, currentlySelectedFile, null, null, null);
+	}
+
+	static public FileDialogResults displayFileOpenDialog(Component owner, String title, File currentlySelectedFile, File currentDirectory)
+	{
+		return displayFileOpenDialog(owner, title, currentlySelectedFile, currentDirectory, null, null);
 	}
 	
 	static public FileDialogResults displayFileOpenDialog(Component owner, String title, File currentlySelectedFile, File currentDirectory, String buttonLabel, FileFilter filterToUse)
@@ -179,6 +187,6 @@ public class UiFileChooser extends JFileChooser
 			previouslySelectedFile = getSelectedFile();
 	} 
 
-	static public final String NO_FILE_SELECTED = " ";
+	static public final File NO_FILE_SELECTED = null;
 	private File previouslySelectedFile = null;
 }
