@@ -29,6 +29,8 @@ package org.martus.swing;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.GraphicsConfiguration;
+import java.awt.Insets;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
@@ -87,26 +89,55 @@ public class Utilities
 	{
 		dlg.pack();
 		Dimension size = dlg.getSize();
-		Rectangle screen = getRectangle();
-		dlg.setLocation(center(size, screen));
+		Dimension viewableScreenSize = getViewableScreenSize(dlg);
+
+		if(size.height < viewableScreenSize.height &&
+	    	size.width < viewableScreenSize.width)
+	    {
+			Rectangle newScreen = getViewableRectangle(dlg);
+			dlg.setLocation(center(size, newScreen));
+	    }
+	    else
+	    {
+		    dlg.setSize(viewableScreenSize);
+		    Insets insets = getInsets(dlg);
+		    dlg.setLocation(insets.left, insets.top);
+	    }
 	}
 	
 	static public void centerFrame(Window owner)
 	{
 		Dimension size = owner.getSize();
-		owner.setLocation(center(size, getRectangle()));
+		owner.setLocation(center(size, getViewableRectangle(owner)));
 	}	
 	
-	static public Rectangle getRectangle()
+	static public Rectangle getViewableRectangle(Window window)
 	{
-		return new Rectangle(new Point(0, 0), Toolkit.getDefaultToolkit().getScreenSize());		
-	}	
+	    Insets insets = getInsets(window);
+		return new Rectangle(new Point(insets.left, insets.top), getViewableScreenSize(window));		
+	}
+	
+	static public Dimension getViewableScreenSize(Window window)
+	{
+		Dimension screenSizeExcludingToolbars = Toolkit.getDefaultToolkit().getScreenSize();
+	    Insets insets = getInsets(window);
+	    screenSizeExcludingToolbars.width -= (insets.left + insets.right);
+	    screenSizeExcludingToolbars.height -= (insets.top + insets.bottom);
+	    return screenSizeExcludingToolbars;
+	}
+
+	private static Insets getInsets(Window dialog)
+	{
+		GraphicsConfiguration graphicsConfig = dialog.getGraphicsConfiguration();
+	    Insets insets = Toolkit.getDefaultToolkit().getScreenInsets(graphicsConfig);
+		return insets;
+	}
 
 	static public Point center(Dimension inner, Rectangle outer)
 	{
 		int x = (outer.width - inner.width) / 2;
 		int y = (outer.height - inner.height) / 2;
-		return new Point(x, y);
+		return new Point(x + outer.x, y + outer.y);
 	}
 	
 	static public void addComponentsRespectingOrientation(JComponent component, Component[] itemsToAdd)
