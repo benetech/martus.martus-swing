@@ -49,7 +49,6 @@ public class UiComboBox extends JComboBox
 		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus)
 		{
 			setComponentOrientation(UiLanguageDirection.getComponentOrientation());
-			getEditor().getEditorComponent().setComponentOrientation(UiLanguageDirection.getComponentOrientation());
 			setHorizontalAlignment(UiLanguageDirection.getHorizontalAlignment());
 			return super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 		}
