@@ -29,14 +29,13 @@ import java.awt.AWTEvent;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.FocusEvent;
-
 import javax.swing.CellEditor;
 import javax.swing.JTable;
+import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
 
@@ -54,18 +53,29 @@ public class UiTable extends JTable
 		enableEvents(AWTEvent.FOCUS_EVENT_MASK);
 	}
 	
-	// This is needed to work around a horrible quirk in swing:
-	// If an editor is active when the table loses focus,
+	// These are needed to work around a horrible quirk in swing:
+	// If an editor is active when the table loses focus, or column resized,
 	// the editing is not stopped, so the edits are lost.
 	// We avoid this by stopping editing whenever we lose focus.
 	protected void processFocusEvent(FocusEvent e) 
 	{
+		saveCellContents();
+		super.processFocusEvent(e);
+	}
+
+	public void columnMarginChanged(ChangeEvent e)
+	{
+		saveCellContents();
+		super.columnMarginChanged(e);
+	}
+	
+	private void saveCellContents()
+	{
 		CellEditor editor = getCellEditor();
 		if(editor != null)
 			editor.stopCellEditing();
-		super.processFocusEvent(e);
 	}
-	
+
 	public void resizeTable()
 	{
 		resizeTable(getModel().getRowCount());
@@ -79,24 +89,30 @@ public class UiTable extends JTable
 		setPreferredScrollableViewportSize(d);
 	}
 	
-	static public void setColumnWidthToHeaderWidth(JTable table, int column)
+	static public void setMaxColumnWidthToHeaderWidth(JTable table, int column)
 	{
-		TableColumnModel columnModel = table.getColumnModel();
-		TableColumn statusColumn = columnModel.getColumn(column);
-		String padding = "    ";
-		String value = (String)statusColumn.getHeaderValue() + padding;
+		int width = setColumnWidthToHeaderWidth(table, column);
+		table.getColumnModel().getColumn(column).setMaxWidth(width);
+	}
 
-		TableCellRenderer renderer = statusColumn.getHeaderRenderer();
+	static public int setColumnWidthToHeaderWidth(JTable table, int column)
+	{
+		TableColumn columnToAdjust = table.getColumnModel().getColumn(column);
+		String padding = "    ";
+		String value = (String)columnToAdjust.getHeaderValue() + padding;
+
+		TableCellRenderer renderer = columnToAdjust.getHeaderRenderer();
 		if(renderer == null)
 		{
 			JTableHeader header = table.getTableHeader();
 			renderer = header.getDefaultRenderer();
 		}
 		Component c = renderer.getTableCellRendererComponent(table, value, true, true, -1, column);
-		Dimension size = c.getPreferredSize();
+		int width = c.getPreferredSize().width;
 
-		statusColumn.setPreferredWidth(size.width);
-		statusColumn.setMaxWidth(size.width);
+		columnToAdjust.setPreferredWidth(width);
+		columnToAdjust.setWidth(width);
+		return width;
 	}
 
 	public TableCellRenderer getCellRenderer(int row, int column)
