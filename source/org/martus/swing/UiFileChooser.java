@@ -131,9 +131,14 @@ public class UiFileChooser extends JFileChooser
 		private boolean cancelChoosen;
 	}
 	
+	static public File getHomeDirectoryFile()
+	{
+		return new File(System.getProperty("user.home"));
+	}
+	
 	static public File getHomeDirectoryFile(String fileName)
 	{
-		File homeDir = new File(System.getProperty("user.home"));
+		File homeDir = getHomeDirectoryFile();
 		if(fileName != null && fileName.length()>0)
 			return new File(homeDir, fileName);
 		return homeDir;
