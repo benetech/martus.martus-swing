@@ -3,7 +3,6 @@
 	<name>martus-swing</name>
 	<comment></comment>
 	<projects>
-		<project>martus-utils</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
