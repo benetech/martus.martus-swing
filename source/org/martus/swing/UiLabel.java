@@ -78,13 +78,10 @@ public class UiLabel extends JLabel
 	 */
 	public Dimension getPreferredSize()
 	{
+		Dimension size = super.getPreferredSize();
 		if(!LanguageOptions.needsLanguagePadding())
-			return super.getPreferredSize();
-
-		final int EXTRA_PIXELS = 14;
-		Dimension d = super.getPreferredSize();
-		d.setSize(d.getWidth(), d.getHeight() + EXTRA_PIXELS);
-		return d;
+			return size;
+		return addCushionToHeight(size);
 	}
 
 	/* Another horible hack to deal with "tall" letters
@@ -94,9 +91,17 @@ public class UiLabel extends JLabel
 	
 	public Dimension getMaximumSize()
 	{
-		if(LanguageOptions.needsLanguagePadding())
-			return getPreferredSize();
-		return super.getMaximumSize();
+		Dimension size = super.getMaximumSize();
+		if(!LanguageOptions.needsLanguagePadding())
+			return size;
+		return addCushionToHeight(size);
+	}
+
+	private Dimension addCushionToHeight(Dimension d)
+	{
+		final int EXTRA_PIXELS = 14;
+		d.setSize(d.getWidth(), d.getHeight() + EXTRA_PIXELS);
+		return d;
 	}
 
 }
