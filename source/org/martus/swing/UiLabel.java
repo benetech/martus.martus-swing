@@ -27,10 +27,8 @@ Boston, MA 02111-1307, USA.
 package org.martus.swing;
 
 import java.awt.Dimension;
-
 import javax.swing.Icon;
 import javax.swing.JLabel;
-
 import org.martus.util.language.LanguageOptions;
 
 
@@ -88,4 +86,17 @@ public class UiLabel extends JLabel
 		d.setSize(d.getWidth(), d.getHeight() + EXTRA_PIXELS);
 		return d;
 	}
+
+	/* Another horible hack to deal with "tall" letters
+	 * getMaximumSize() instead of getPreferredSize()
+	 * is being called from Box's horizontal and vertical.
+	 */
+	
+	public Dimension getMaximumSize()
+	{
+		if(LanguageOptions.needsLanguagePadding())
+			return getPreferredSize();
+		return super.getMaximumSize();
+	}
+
 }
