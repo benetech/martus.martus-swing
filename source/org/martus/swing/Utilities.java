@@ -158,6 +158,14 @@ public class Utilities
 		
 	}
 
+	public static Dimension addCushionToHeightIfRequired(Dimension d, int extraHeight)
+	{
+		if(!LanguageOptions.needsLanguagePadding())
+			return d;
+		d.setSize(d.getWidth(), d.getHeight() + extraHeight);
+		return d;
+	}
+
 	public static class Delay extends Thread
 	{
 		public Delay(int sec)

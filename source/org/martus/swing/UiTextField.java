@@ -23,30 +23,44 @@ Software Foundation, Inc., 59 Temple Place - Suite 330,
 Boston, MA 02111-1307, USA.
 
 */
-
 package org.martus.swing;
 
 import java.awt.Dimension;
-import javax.swing.JButton;
+import javax.swing.JTextField;
 
 
-public class UiButton extends JButton
+public class UiTextField extends JTextField
 {
-	public UiButton(String text)
+	public UiTextField()
+	{
+		super();
+		initalizeOrientation();
+	}
+	
+	public UiTextField (int columns)
+	{
+		super(columns);
+		initalizeOrientation();
+	}
+	
+	public UiTextField(String text)
 	{
 		super(text);
+		initalizeOrientation();
 	}
 
+	private void initalizeOrientation()
+	{
+		setComponentOrientation(UiLanguageDirection.getComponentOrientation());
+		setHorizontalAlignment(UiLanguageDirection.getHorizontalAlignment());
+	}
+	
 	/* 
-	 * This is copied from the horrible hack in JTextArea.
-	 * I'm not sure if there is a better way, but somehow we 
-	 * need to prevent Arabic letters from being chopped off 
-	 * at the top and bottom.
-	 * 
-	 * Unfortunately, since my system didn't show the problem,
-	 * I'm not sure this actually helped. Still, it seems like 
-	 * a good idea to have a UiButton class, so it's not all 
-	 * wasted, even if this method disappears. kbs.
+	 * NOTE: This is a horrible hack to work around the fact that a JTextArea
+	 * seems to completely ignore any calls to setBorder or setMargin.
+	 * We need to add some space to the bottom of the field to avoid Arabic
+	 * (and even English) characters from being chopped off. 
+	 * The number of pixels is arbitrary and may need to be adjusted.
 	 */
 	
 	public Dimension getPreferredSize()

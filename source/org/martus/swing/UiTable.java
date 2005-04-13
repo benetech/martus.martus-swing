@@ -54,7 +54,7 @@ public class UiTable extends JTable
 	{
 		int defaultRowHeight = super.getRowHeight();
 		if(LanguageOptions.needsLanguagePadding())
-			return defaultRowHeight+ROW_HEIGHT_PADDING;
+			return defaultRowHeight+EXTRA_PIXELS;
 		return defaultRowHeight;
 	}
 	public void resizeTable()
@@ -122,6 +122,6 @@ public class UiTable extends JTable
 		return renderer;
 	}
 
-	private static final int ROW_HEIGHT_PADDING = 14;
+	private static final int EXTRA_PIXELS = 14;
 	
 }

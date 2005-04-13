@@ -29,7 +29,6 @@ package org.martus.swing;
 import java.awt.Dimension;
 import javax.swing.Icon;
 import javax.swing.JLabel;
-import org.martus.util.language.LanguageOptions;
 
 
 public class UiLabel extends JLabel
@@ -78,10 +77,7 @@ public class UiLabel extends JLabel
 	 */
 	public Dimension getPreferredSize()
 	{
-		Dimension size = super.getPreferredSize();
-		if(!LanguageOptions.needsLanguagePadding())
-			return size;
-		return addCushionToHeight(size);
+		return Utilities.addCushionToHeightIfRequired(super.getPreferredSize(), EXTRA_PIXELS);
 	}
 
 	/* Another horible hack to deal with "tall" letters
@@ -91,17 +87,9 @@ public class UiLabel extends JLabel
 	
 	public Dimension getMaximumSize()
 	{
-		Dimension size = super.getMaximumSize();
-		if(!LanguageOptions.needsLanguagePadding())
-			return size;
-		return addCushionToHeight(size);
+		return Utilities.addCushionToHeightIfRequired(super.getMaximumSize(), EXTRA_PIXELS);
 	}
-
-	private Dimension addCushionToHeight(Dimension d)
-	{
-		final int EXTRA_PIXELS = 14;
-		d.setSize(d.getWidth(), d.getHeight() + EXTRA_PIXELS);
-		return d;
-	}
+	
+	final int EXTRA_PIXELS = 14;
 
 }

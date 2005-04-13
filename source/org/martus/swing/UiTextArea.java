@@ -33,7 +33,6 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
-import org.martus.util.language.LanguageOptions;
 
 public class UiTextArea extends JTextArea
 {
@@ -83,14 +82,21 @@ public class UiTextArea extends JTextArea
 	 * (and even English) characters from being chopped off. 
 	 * The number of pixels is arbitrary and may need to be adjusted.
 	 */
+	
 	public Dimension getPreferredSize()
 	{
-		if(!LanguageOptions.needsLanguagePadding())
-			return super.getPreferredSize();
-		
-		final int EXTRA_PIXELS = 7;
-		Dimension d = super.getPreferredSize();
-		d.setSize(d.getWidth(), d.getHeight() + EXTRA_PIXELS);
-		return d;
+		return Utilities.addCushionToHeightIfRequired(super.getPreferredSize(), EXTRA_PIXELS);
 	}
+
+	/* Another horible hack to deal with "tall" letters
+	 * getMaximumSize() instead of getPreferredSize()
+	 * is being called from Box's horizontal and vertical.
+	 */
+	
+	public Dimension getMaximumSize()
+	{
+		return Utilities.addCushionToHeightIfRequired(super.getMaximumSize(), EXTRA_PIXELS);
+	}
+	
+	final int EXTRA_PIXELS = 7;
 }
