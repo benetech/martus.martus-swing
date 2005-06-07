@@ -28,6 +28,7 @@ package org.martus.swing;
 
 import java.awt.Dimension;
 import java.io.IOException;
+import java.io.NotSerializableException;
 
 import javax.swing.JButton;
 
@@ -67,10 +68,10 @@ public class UiButton extends JButton
 	}
 
 	// This class is NOT intended to be serialized!!!
-	static final long serialVersionUID = 1;
+	private static final long serialVersionUID = 1;
 	private void writeObject(java.io.ObjectOutputStream stream) throws IOException
 	{
-		throw new IOException();
+		throw new NotSerializableException();
 	}
 
 	final int EXTRA_PIXELS = 14;
