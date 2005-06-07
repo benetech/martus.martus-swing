@@ -26,6 +26,9 @@ Boston, MA 02111-1307, USA.
 package org.martus.swing;
 
 import java.awt.Component;
+import java.io.IOException;
+import java.io.NotSerializableException;
+
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JComboBox;
 import javax.swing.JList;
@@ -52,6 +55,13 @@ public class UiComboBox extends JComboBox
 			setHorizontalAlignment(UiLanguageDirection.getHorizontalAlignment());
 			return super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 		}
+
+		private static final long serialVersionUID = 1;
+		private void writeObject(java.io.ObjectOutputStream stream) throws IOException
+		{
+			throw new NotSerializableException();
+		}
+
 	}
 	
 	private void setComponentOrienation()
@@ -60,4 +70,10 @@ public class UiComboBox extends JComboBox
 		setRenderer(new UiComboListCellRenderer());
 	}
 	
+	private static final long serialVersionUID = 1;
+	private void writeObject(java.io.ObjectOutputStream stream) throws IOException
+	{
+		throw new NotSerializableException();
+	}
+
 }

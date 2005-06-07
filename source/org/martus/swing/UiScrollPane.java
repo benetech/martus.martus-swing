@@ -26,6 +26,9 @@ Boston, MA 02111-1307, USA.
 package org.martus.swing;
 
 import java.awt.Component;
+import java.io.IOException;
+import java.io.NotSerializableException;
+
 import javax.swing.JScrollPane;
 
 
@@ -51,4 +54,11 @@ public class UiScrollPane extends JScrollPane
 		super(view, vsbPolicy, hsbPolicy);
 		setComponentOrientation(UiLanguageDirection.getComponentOrientation());
 	}
+
+	private static final long serialVersionUID = 1;
+	private void writeObject(java.io.ObjectOutputStream stream) throws IOException
+	{
+		throw new NotSerializableException();
+	}
+
 }

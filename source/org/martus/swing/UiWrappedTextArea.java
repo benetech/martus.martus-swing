@@ -26,6 +26,9 @@ Boston, MA 02111-1307, USA.
 
 package org.martus.swing;
 
+import java.io.IOException;
+import java.io.NotSerializableException;
+
 import javax.swing.JFrame;
 
 public class UiWrappedTextArea extends UiTextArea
@@ -75,6 +78,12 @@ public class UiWrappedTextArea extends UiTextArea
 		JFrame sampleWindow = new JFrame();
 		setBackground(sampleWindow.getBackground());
 		setForeground(sampleWindow.getForeground());
+	}
+
+	private static final long serialVersionUID = 1;
+	private void writeObject(java.io.ObjectOutputStream stream) throws IOException
+	{
+		throw new NotSerializableException();
 	}
 
 }

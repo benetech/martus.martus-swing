@@ -30,6 +30,8 @@ import java.awt.Component;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.io.IOException;
+import java.io.NotSerializableException;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
@@ -193,6 +195,12 @@ public class UiFileChooser extends JFileChooser
 		else 
 			previouslySelectedFile = getSelectedFile();
 	} 
+
+	private static final long serialVersionUID = 1;
+	private void writeObject(java.io.ObjectOutputStream stream) throws IOException
+	{
+		throw new NotSerializableException();
+	}
 
 	static public final File NO_FILE_SELECTED = null;
 	private File previouslySelectedFile = null;

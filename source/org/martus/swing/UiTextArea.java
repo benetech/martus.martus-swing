@@ -29,6 +29,8 @@ package org.martus.swing;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.KeyboardFocusManager;
+import java.io.IOException;
+import java.io.NotSerializableException;
 import java.util.HashSet;
 import java.util.Set;
 import javax.swing.JTextArea;
@@ -98,5 +100,11 @@ public class UiTextArea extends JTextArea
 		return Utilities.addCushionToHeightIfRequired(super.getMaximumSize(), EXTRA_PIXELS);
 	}
 	
+	private static final long serialVersionUID = 1;
+	private void writeObject(java.io.ObjectOutputStream stream) throws IOException
+	{
+		throw new NotSerializableException();
+	}
+
 	final int EXTRA_PIXELS = 7;
 }

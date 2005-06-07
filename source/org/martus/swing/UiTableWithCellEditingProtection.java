@@ -26,6 +26,9 @@ Boston, MA 02111-1307, USA.
 package org.martus.swing;
 
 import java.awt.event.FocusEvent;
+import java.io.IOException;
+import java.io.NotSerializableException;
+
 import javax.swing.CellEditor;
 import javax.swing.event.ChangeEvent;
 import javax.swing.table.TableModel;
@@ -66,4 +69,11 @@ public class UiTableWithCellEditingProtection extends UiTable
 		if(editor != null)
 			editor.stopCellEditing();
 	}
+
+	private static final long serialVersionUID = 1;
+	private void writeObject(java.io.ObjectOutputStream stream) throws IOException
+	{
+		throw new NotSerializableException();
+	}
+
 }
