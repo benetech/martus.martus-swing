@@ -28,10 +28,9 @@ package org.martus.swing;
 import java.awt.event.FocusEvent;
 import java.io.IOException;
 import java.io.NotSerializableException;
-
 import javax.swing.CellEditor;
 import javax.swing.DefaultCellEditor;
-import javax.swing.JComboBox;
+import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.table.TableModel;
 
@@ -70,7 +69,7 @@ public class UiTableWithCellEditingProtection extends UiTable
 		CellEditor editor = getCellEditor();
 		if(editor != null && editor instanceof DefaultCellEditor ) 
 		{
-            if(!(((DefaultCellEditor)editor).getComponent() instanceof JComboBox))
+            if(((DefaultCellEditor)editor).getComponent() instanceof JTextField)
 				editor.stopCellEditing();
 		}
 	}

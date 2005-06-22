@@ -120,8 +120,9 @@ public class UiTable extends JTable
 
 	public TableCellRenderer getCellRenderer(int row, int column)
 	{
-		DefaultTableCellRenderer renderer = (DefaultTableCellRenderer)super.getCellRenderer(row, column);
-		renderer.setHorizontalAlignment(UiLanguageDirection.getHorizontalAlignment());
+		TableCellRenderer renderer = super.getCellRenderer(row, column);
+		if(renderer instanceof DefaultTableCellRenderer)
+			((DefaultTableCellRenderer)renderer).setHorizontalAlignment(UiLanguageDirection.getHorizontalAlignment());
 		return renderer;
 	}
 
