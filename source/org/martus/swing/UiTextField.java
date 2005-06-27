@@ -26,8 +26,6 @@ Boston, MA 02111-1307, USA.
 package org.martus.swing;
 
 import java.awt.Dimension;
-import java.io.IOException;
-import java.io.NotSerializableException;
 
 import javax.swing.JTextField;
 
@@ -79,12 +77,6 @@ public class UiTextField extends JTextField
 	public Dimension getMaximumSize()
 	{
 		return Utilities.addCushionToHeightIfRequired(super.getMaximumSize(), EXTRA_PIXELS);
-	}
-
-	private static final long serialVersionUID = 1;
-	private void writeObject(java.io.ObjectOutputStream stream) throws IOException
-	{
-		throw new NotSerializableException();
 	}
 
 	final int EXTRA_PIXELS = 14;

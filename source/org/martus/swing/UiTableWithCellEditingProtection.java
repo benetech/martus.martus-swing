@@ -27,8 +27,6 @@ package org.martus.swing;
 
 import java.awt.Component;
 import java.awt.event.FocusEvent;
-import java.io.IOException;
-import java.io.NotSerializableException;
 
 import javax.swing.CellEditor;
 import javax.swing.event.ChangeEvent;
@@ -91,12 +89,6 @@ public class UiTableWithCellEditingProtection extends UiTable
 			return;
 		
 		editor.stopCellEditing();
-	}
-
-	private static final long serialVersionUID = 1;
-	private void writeObject(java.io.ObjectOutputStream stream) throws IOException
-	{
-		throw new NotSerializableException();
 	}
 
 }

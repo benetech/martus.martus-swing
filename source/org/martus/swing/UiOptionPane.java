@@ -25,9 +25,6 @@ Boston, MA 02111-1307, USA.
 */
 package org.martus.swing;
 
-import java.io.IOException;
-import java.io.NotSerializableException;
-
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
@@ -39,12 +36,6 @@ public class UiOptionPane extends JOptionPane
 	{
 		super(message, messageType, optionType, icon, options);
 		setComponentOrientation(UiLanguageDirection.getComponentOrientation());
-	}
-
-	private static final long serialVersionUID = 1;
-	private void writeObject(java.io.ObjectOutputStream stream) throws IOException
-	{
-		throw new NotSerializableException();
 	}
 
 }

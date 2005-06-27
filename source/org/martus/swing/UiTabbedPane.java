@@ -25,9 +25,6 @@ Boston, MA 02111-1307, USA.
 */
 package org.martus.swing;
 
-import java.io.IOException;
-import java.io.NotSerializableException;
-
 import javax.swing.JTabbedPane;
 
 
@@ -37,12 +34,6 @@ public class UiTabbedPane extends JTabbedPane
 	{
 		super();
 		setComponentOrientation(UiLanguageDirection.getComponentOrientation());
-	}
-
-	private static final long serialVersionUID = 1;
-	private void writeObject(java.io.ObjectOutputStream stream) throws IOException
-	{
-		throw new NotSerializableException();
 	}
 
 }

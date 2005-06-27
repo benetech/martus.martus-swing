@@ -26,8 +26,6 @@ Boston, MA 02111-1307, USA.
 package org.martus.swing;
 
 import java.awt.Toolkit;
-import java.io.IOException;
-import java.io.NotSerializableException;
 import java.util.Arrays;
 
 import javax.swing.JPasswordField;
@@ -133,12 +131,6 @@ public class UiPasswordField extends JPasswordField
 		Arrays.fill(data, scrubDataByte);
 	}
 	
-	private static final long serialVersionUID = 1;
-	private void writeObject(java.io.ObjectOutputStream stream) throws IOException
-	{
-		throw new NotSerializableException();
-	}
-
 	final int MAX_PASSWORD_LENGTH = 1024;
 	private boolean inVirtualMode;
 	private char[] virtualPassword;

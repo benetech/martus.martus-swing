@@ -31,8 +31,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
-import java.io.NotSerializableException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -142,12 +140,6 @@ public class UiNotifyDlg extends JDialog implements ActionListener
 	public String getResult()
 	{
 		return result;
-	}
-
-	private static final long serialVersionUID = 1;
-	private void writeObject(java.io.ObjectOutputStream stream) throws IOException
-	{
-		throw new NotSerializableException();
 	}
 
 	String result;

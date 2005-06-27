@@ -27,8 +27,6 @@ package org.martus.swing;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.io.IOException;
-import java.io.NotSerializableException;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -36,6 +34,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
+
 import org.martus.util.language.LanguageOptions;
 
 
@@ -124,12 +123,6 @@ public class UiTable extends JTable
 		if(renderer instanceof DefaultTableCellRenderer)
 			((DefaultTableCellRenderer)renderer).setHorizontalAlignment(UiLanguageDirection.getHorizontalAlignment());
 		return renderer;
-	}
-
-	private static final long serialVersionUID = 1;
-	private void writeObject(java.io.ObjectOutputStream stream) throws IOException
-	{
-		throw new NotSerializableException();
 	}
 
 	private static final int EXTRA_PIXELS = 14;
