@@ -25,9 +25,6 @@ Boston, MA 02111-1307, USA.
 */
 package org.martus.swing;
 
-import java.awt.Component;
-import java.awt.event.FocusEvent;
-
 import javax.swing.CellEditor;
 import javax.swing.event.ChangeEvent;
 import javax.swing.table.TableModel;
@@ -40,46 +37,22 @@ public class UiTableWithCellEditingProtection extends UiTable
 	{
 		super();
 	}
+	
 	public UiTableWithCellEditingProtection(TableModel model)
 	{
 		super(model);
 	}
 
-	// These are needed to work around a horrible quirk in swing:
-	// If an editor is active when the table loses focus, or column resized,
+	// This is needed to work around a horrible quirk in swing:
+	// If an editor is active when a column is resized,
 	// the editing is not stopped, so the edits are lost.
-	// We avoid this by stopping editing whenever we lose focus.
-	// Two ways to reproduce: 
-	// - Click once in a text cell, enter text, click on Save Sealed
+	// Even the editing component is not told that it is losing focus.
+	// To reproduce: 
 	// - Click once in a text cell, enter text, start widening a column
-	protected void processFocusEvent(FocusEvent e) 
-	{
-		if(e.getID() == FocusEvent.FOCUS_LOST)
-		{
-			// The following check handles the case when we click
-			// in a dropdown inside a grid. If we were to call 
-			// saveCellContents here, we would stop editing the 
-			// very dropdown that we JUST started to edit.
-			Component focusTakenBy = e.getOppositeComponent();
-			if(!isComponentOurChild(focusTakenBy))
-				saveCellContents();
-		}
-		
-		super.processFocusEvent(e);
-	}
-	
-	private boolean isComponentOurChild(Component component)
-	{
-		if(component == null)
-			return false;
-		
-		return (component.getParent().equals(this));
-	}
-
-	public void columnMarginChanged(ChangeEvent e)
+	public void columnMarginChanged(ChangeEvent event)
 	{
 		saveCellContents();
-		super.columnMarginChanged(e);
+		super.columnMarginChanged(event);
 	}
 	
 	private void saveCellContents()
@@ -90,5 +63,4 @@ public class UiTableWithCellEditingProtection extends UiTable
 		
 		editor.stopCellEditing();
 	}
-
 }
