@@ -82,13 +82,13 @@ public class UiTable extends JTable
 		setColumnWidth(column, getColumnHeaderWidth(column));
 	}
 
-	protected void setColumnMaxWidth(int column, int width) 
+	public void setColumnMaxWidth(int column, int width) 
 	{
 		setColumnWidth(column, width);
 		getColumnModel().getColumn(column).setMaxWidth(width);
 	}
 	
-	protected void setColumnWidth(int column, int width) 
+	public void setColumnWidth(int column, int width) 
 	{
 		TableColumn columnToAdjust = getColumnModel().getColumn(column);
 		columnToAdjust.setPreferredWidth(width);
@@ -103,7 +103,7 @@ public class UiTable extends JTable
 		return getRenderedWidth(column, value);
 	}
 
-	protected int getRenderedWidth(int column, String value) 
+	public int getRenderedWidth(int column, String value) 
 	{
 		TableColumn columnToAdjust = getColumnModel().getColumn(column);
 		TableCellRenderer renderer = columnToAdjust.getHeaderRenderer();
