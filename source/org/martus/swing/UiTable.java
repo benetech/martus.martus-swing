@@ -85,7 +85,7 @@ public class UiTable extends JTable
 	public void setColumnMaxWidth(int column, int width) 
 	{
 		setColumnWidth(column, width);
-		getColumnModel().getColumn(column).setPreferredWidth(width);
+		getColumnModel().getColumn(column).setMaxWidth(width);
 	}
 	
 	public void setColumnWidth(int column, int width) 
