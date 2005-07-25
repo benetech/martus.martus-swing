@@ -51,6 +51,7 @@ public class UiTableWithCellEditingProtection extends UiTable
 	// - Click once in a text cell, enter text, start widening a column
 	public void columnMarginChanged(ChangeEvent event)
 	{
+//		System.out.println("columnMarginChanged saveCellContents");
 		saveCellContents();
 		super.columnMarginChanged(event);
 	}
@@ -60,7 +61,7 @@ public class UiTableWithCellEditingProtection extends UiTable
 		CellEditor editor = getCellEditor();
 		if(editor == null)
 			return;
-		
+//		System.out.println("saveCellContents stopCellEditing");
 		editor.stopCellEditing();
 	}
 }
