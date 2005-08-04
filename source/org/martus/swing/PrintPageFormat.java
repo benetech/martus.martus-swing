@@ -86,9 +86,9 @@ public class PrintPageFormat extends PageFormat
 		}
 		setPaper(paper);
 		if(otherMediaSet && !paperSizeSet)
-			mustWarnUser = true;
+			possiblePaperSizeAndTrayMismatch = true;
 		else
-			mustWarnUser = false;
+			possiblePaperSizeAndTrayMismatch = false;
 	}
-	public boolean mustWarnUser;
+	public boolean possiblePaperSizeAndTrayMismatch;
 }
