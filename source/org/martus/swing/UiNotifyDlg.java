@@ -65,16 +65,14 @@ public class UiNotifyDlg extends JDialog implements ActionListener
 			
 			setTitle(title);
 			
-			Box vbox = Box.createVerticalBox();
-			vbox.setComponentOrientation(UiLanguageDirection.getComponentOrientation());
-			vbox.add(new UiLabel(" "));
+			UiVBox vbox = new UiVBox();
+			vbox.addSpace();
 			for(int i = 0 ; i < contents.length ; ++i)
-				vbox.add(createWrappedTextArea(contents[i]));
-			vbox.add(new UiLabel(" "));
+				vbox.addCentered(createWrappedTextArea(contents[i]));
+			vbox.addSpace();
 			
 			ok = new UiButton(buttons[0]);
 			ok.addActionListener(this);
-			Box hbox = Box.createHorizontalBox();
 
 			int numberOfButtons = buttons.length;
 			JButton[] allButtons = new UiButton[numberOfButtons];
@@ -85,10 +83,11 @@ public class UiNotifyDlg extends JDialog implements ActionListener
 				button.addActionListener(this);
 				allButtons[j] = button;
 			}
+			Box hbox = Box.createHorizontalBox();
 			Utilities.addComponentsRespectingOrientation(hbox, allButtons);
 			
-			vbox.add(hbox);
-			vbox.add(new UiLabel(" "));
+			vbox.addCentered(hbox);
+			vbox.addSpace();
 		
 			JPanel panel = new JPanel();	
 			panel.setComponentOrientation(UiLanguageDirection.getComponentOrientation());
