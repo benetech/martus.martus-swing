@@ -58,10 +58,10 @@ public class UiVBox extends Box
 	}
 	private Component addRespectingOrientation(Component[] component)
 	{
-		Box h1 = Box.createHorizontalBox();
-		Utilities.addComponentsRespectingOrientation(h1, component);
-		Box h2 = Box.createHorizontalBox();
-		Utilities.addComponentsRespectingOrientation(h2, new Component[] {h1,Box.createHorizontalGlue()});
-		return super.add(h2);
+		Box componentBox = Box.createHorizontalBox();
+		Utilities.addComponentsRespectingOrientation(componentBox, component);
+		Box aligningBox = Box.createHorizontalBox();
+		Utilities.addComponentsRespectingOrientation(aligningBox, new Component[] {componentBox,Box.createHorizontalGlue()});
+		return super.add(aligningBox);
 	}
 }
