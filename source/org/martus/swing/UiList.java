@@ -31,16 +31,24 @@ import javax.swing.JList;
 
 public class UiList extends JList
 {
+	public UiList()
+	{
+		super();
+		initalize();
+	}
+
 	public UiList(String[] list)
 	{
 		super(list);
 		initalize();
 	}
+	
 	public UiList(Vector list)
 	{
 		super(list);
 		initalize();
 	}
+
 	private void initalize()
 	{
 		setComponentOrientation(UiLanguageDirection.getComponentOrientation());

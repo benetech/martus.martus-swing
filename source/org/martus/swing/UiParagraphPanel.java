@@ -61,7 +61,7 @@ public class UiParagraphPanel extends JPanel
 	
 	public void addBlankLine()
 	{
-		addOnNewLine(new UiLabel(""));
+		addOnNewLine(new UiLabel(" "));
 	}
 
 	public void addOnNewLine(Component itemToAdd)
