@@ -29,6 +29,8 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.LayoutManager;
 import java.awt.Rectangle;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JComboBox;
 import javax.swing.JList;
@@ -42,18 +44,49 @@ public class UiComboBox extends JComboBox
 	
 	public UiComboBox()
 	{
-		setComponentOrienation();
+		initalize();
 	}
+
 	
 	public UiComboBox(Object[] items)
 	{
 		super(items);
-		setComponentOrienation();
+		initalize();
 	}
 
+	private void initalize()
+	{
+		setComponentOrienation();
+		addKeyListener(new UiComboBoxKeyListener());
+	}
+	
 	public void setUI(ComboBoxUI ui)
 	{
-		super.setUI(new slimArrowComboBoxUi());
+		super.setUI(new SlimArrowComboBoxUi());
+	}
+	
+	private void setComponentOrienation()
+	{
+		setComponentOrientation(UiLanguageDirection.getComponentOrientation());
+		setRenderer(new UiComboListCellRenderer());
+	}
+	
+	private class UiComboBoxKeyListener extends KeyAdapter
+	{
+		public void keyReleased(KeyEvent e)
+		{
+			if(e.getKeyCode() == KeyEvent.VK_SPACE)
+			{
+				if(isPopupVisible())
+					hidePopup();
+				else
+					showPopup();
+				e.consume();
+				return;
+			}
+			super.keyReleased(e);
+		}
+		
 	}
 
 	private class UiComboListCellRenderer extends DefaultListCellRenderer
@@ -66,13 +99,7 @@ public class UiComboBox extends JComboBox
 		}
 	}
 	
-	private void setComponentOrienation()
-	{
-		setComponentOrientation(UiLanguageDirection.getComponentOrientation());
-		setRenderer(new UiComboListCellRenderer());
-	}
-	
-	public class slimArrowComboBoxUi extends BasicComboBoxUI
+	private class SlimArrowComboBoxUi extends BasicComboBoxUI
 	{
 		protected LayoutManager createLayoutManager()
 		{
