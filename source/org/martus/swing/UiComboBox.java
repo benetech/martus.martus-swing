@@ -31,11 +31,14 @@ import java.awt.LayoutManager;
 import java.awt.Rectangle;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
 import javax.swing.DefaultListCellRenderer;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.plaf.ComboBoxUI;
 import javax.swing.plaf.basic.BasicComboBoxUI;
+
 import org.martus.util.language.LanguageOptions;
 
 
@@ -62,7 +65,15 @@ public class UiComboBox extends JComboBox
 	
 	public void setUI(ComboBoxUI ui)
 	{
-		super.setUI(new SlimArrowComboBoxUi());
+		/* UGLY HACK: Under MS Windows, some fonts like Arabic extend beyond their declared bounds,
+		 * so we have to pad them. If we do that in combo boxes, another Swing bug 
+		 * causes the dropdown arrow to become twice as large.
+		 * If we are running under MS Windows, we'll tweak the button size.
+		 * But under Linux, this would cause the entire combo border to disappear, and 
+		 * when using a padded language the dropdown button is half as wide as it should be */
+		if(Utilities.isMSWindows())
+			ui = new SlimArrowComboBoxUi();
+		super.setUI(ui);
 	}
 	
 	private void setComponentOrienation()
@@ -99,11 +110,16 @@ public class UiComboBox extends JComboBox
 		}
 	}
 	
-	private class SlimArrowComboBoxUi extends BasicComboBoxUI
+	class SlimArrowComboBoxUi extends BasicComboBoxUI
 	{
 		protected LayoutManager createLayoutManager()
 		{
 			return new slimArrowLayoutManager();
+		}
+		
+		public JButton getArrowButton()
+		{
+			return arrowButton;
 		}
 		
 		public class slimArrowLayoutManager extends ComboBoxLayoutManager
@@ -114,10 +130,10 @@ public class UiComboBox extends JComboBox
 	        	
 		        if(LanguageOptions.needsLanguagePadding()) 
 		        {
-		        	Rectangle rect = arrowButton.getBounds();
+		        	Rectangle rect = getArrowButton().getBounds();
 		        	int slimArrowFactor = 2;
 		        	rect.width /= slimArrowFactor;
-		        	arrowButton.setBounds(rect);
+		        	getArrowButton().setBounds(rect);
 		        }
 	        }
 		}
