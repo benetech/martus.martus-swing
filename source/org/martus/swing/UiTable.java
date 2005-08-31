@@ -92,6 +92,7 @@ public class UiTable extends JTable
 	{
 		TableColumn columnToAdjust = getColumnModel().getColumn(column);
 		columnToAdjust.setPreferredWidth(width);
+		columnToAdjust.setMinWidth(width);
 		columnToAdjust.setWidth(width);
 	}
 
