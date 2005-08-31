@@ -26,27 +26,23 @@ Boston, MA 02111-1307, USA.
 
 package org.martus.swing;
 
-import java.awt.Dimension;
+import javax.swing.JLabel;
+import javax.swing.border.EmptyBorder;
 
 
 public class UiWrappedTextPanel extends UiScrollPane
 {
 	public UiWrappedTextPanel(String text)
 	{
-		textArea = new UiTextArea(text);
+		UiTextArea textArea = new UiTextArea(text);
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
 		textArea.setEditable(false);
+		JLabel colorSource = new JLabel();
+		textArea.setForeground(colorSource.getForeground());
+		textArea.setBackground(colorSource.getBackground());
 		
+		setBorder(new EmptyBorder(0, 0, 0, 0));
 		setViewportView(textArea);
 	}
-	
-	public Dimension getPreferredSize()
-	{
-		System.out.println(super.getMinimumSize());
-		System.out.println(super.getPreferredSize());
-		return super.getPreferredSize();
-	}
-	
-	UiTextArea textArea;
 }
