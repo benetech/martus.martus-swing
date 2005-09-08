@@ -33,19 +33,19 @@ import java.util.Comparator;
 import java.util.Vector;
 
 import javax.swing.event.TableModelEvent;
-import org.martus.util.TableSortableModel;
+import org.martus.util.SortableTableModel;
 
 public class UiSortableTable extends UiTable 
 {
-	public UiSortableTable(TableSortableModel model)
+	public UiSortableTable(SortableTableModel model)
 	{
 		super(model);
 		getTableHeader().addMouseListener(new SortColumnListener(this));
 	}
 	
-	public TableSortableModel getSortableTableModel()
+	public SortableTableModel getSortableTableModel()
 	{
-		return (TableSortableModel)getModel();
+		return (SortableTableModel)getModel();
 	}
 	
 	class SortColumnListener extends MouseAdapter
@@ -64,7 +64,7 @@ public class UiSortableTable extends UiTable
 		private void sortTable(int columnToSort) 
 		{
 			Vector newIndexes = getNewSortedOrderOfRows(columnToSort);
-			TableSortableModel model = table.getSortableTableModel();
+			SortableTableModel model = table.getSortableTableModel();
 			model.setSortedRowIndexes(newIndexes);
 			tableChanged(new TableModelEvent(model));
 		}
@@ -72,14 +72,14 @@ public class UiSortableTable extends UiTable
 		private Vector getNewSortedOrderOfRows(int columnToSort) 
 		{
 		    sortingOrder = -sortingOrder;
-			return sortTable(table.getSortableTableModel(), columnToSort);
+			return getNewSortedOrderOfRows(table.getSortableTableModel(), columnToSort);
 		}
 		
-		private synchronized Vector sortTable(TableSortableModel model, int columnToSort)
+		private synchronized Vector getNewSortedOrderOfRows(SortableTableModel model, int columnToSort)
 		{
 			class Sorter implements Comparator
 			{
-				public Sorter(TableSortableModel modelToUse, int column, int sortDirection)
+				public Sorter(SortableTableModel modelToUse, int column, int sortDirection)
 				{
 					tableModel = modelToUse;
 					columnToSortOn = column;
@@ -91,7 +91,7 @@ public class UiSortableTable extends UiTable
 					Comparable obj2 = (Comparable)tableModel.getValueAtDirect(((Integer)(o2)).intValue(), columnToSortOn);
 					return obj1.compareTo(obj2) * sorterDirection;
 				}
-				TableSortableModel tableModel; 
+				SortableTableModel tableModel; 
 				int columnToSortOn;
 				int sorterDirection;
 			}
