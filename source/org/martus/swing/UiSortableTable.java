@@ -21,11 +21,6 @@ public class UiSortableTable extends UiTable
 		return (TableSortableModel)getModel();
 	}
 	
-	public void clearSortedOrder()
-	{
-		getSortableTableModel().clearSortedOrder();
-	}
-
 	class SortColumnListener extends MouseAdapter
 	{
 		SortColumnListener (UiSortableTable tableToUse)
@@ -36,12 +31,15 @@ public class UiSortableTable extends UiTable
 		public void mouseClicked(MouseEvent e) 
 		{
 		     int columnToSort = table.getColumnModel().getColumnIndexAtX(e.getX());
-		     Vector newIndexes = getNewSortedOrderOfRows(columnToSort);
+		     sortTable(columnToSort);
+		}
 
+		private void sortTable(int columnToSort) 
+		{
+			Vector newIndexes = getNewSortedOrderOfRows(columnToSort);
 		     TableSortableModel model = table.getSortableTableModel();
 		     model.setSortedRowIndexes(newIndexes);
-		     table.tableChanged(new TableModelEvent(model));
-		     
+		     tableChanged(new TableModelEvent(model));
 		}
 
 		private Vector getNewSortedOrderOfRows(int columnToSort) 
