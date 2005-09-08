@@ -33,6 +33,7 @@ import java.util.Comparator;
 import java.util.Vector;
 
 import javax.swing.event.TableModelEvent;
+import org.martus.util.TableSortableModel;
 
 public class UiSortableTable extends UiTable 
 {
