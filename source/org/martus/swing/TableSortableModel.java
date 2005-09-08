@@ -22,11 +22,16 @@ abstract public class TableSortableModel extends AbstractTableModel
 	
 	public void setSortedRowIndexes(Vector newIndexes)
 	{
-		sortedRowIndexes.clear();
+		clearSortedOrder();
 		for(int i = 0; i < getRowCount(); ++i)
 		{
 			sortedRowIndexes.put(new Integer(i), newIndexes.get(i));
 		}
+	}
+	
+	public void clearSortedOrder()
+	{
+		sortedRowIndexes.clear();
 	}
 	
 	HashMap sortedRowIndexes = new HashMap();

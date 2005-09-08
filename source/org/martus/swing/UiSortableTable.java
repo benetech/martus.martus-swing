@@ -20,6 +20,11 @@ public class UiSortableTable extends UiTable
 	{
 		return (TableSortableModel)getModel();
 	}
+	
+	public void clearSortedOrder()
+	{
+		getSortableTableModel().clearSortedOrder();
+	}
 
 	class SortColumnListener extends MouseAdapter
 	{
