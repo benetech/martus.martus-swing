@@ -37,9 +37,9 @@ public class UiSortableTable extends UiTable
 		private void sortTable(int columnToSort) 
 		{
 			Vector newIndexes = getNewSortedOrderOfRows(columnToSort);
-		     TableSortableModel model = table.getSortableTableModel();
-		     model.setSortedRowIndexes(newIndexes);
-		     tableChanged(new TableModelEvent(model));
+			TableSortableModel model = table.getSortableTableModel();
+			model.setSortedRowIndexes(newIndexes);
+			tableChanged(new TableModelEvent(model));
 		}
 
 		private Vector getNewSortedOrderOfRows(int columnToSort) 
