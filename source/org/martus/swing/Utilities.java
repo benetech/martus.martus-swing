@@ -39,6 +39,7 @@ import java.awt.Window;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import org.martus.util.language.LanguageOptions;
@@ -187,5 +188,23 @@ public class Utilities
 		private int timeInMillis;
 	}
 
+	static public void forceScrollerToTop(JComponent viewToScroll)
+	{
+		SwingUtilities.invokeLater(new ScrollToTop(viewToScroll));
+	}
 
+	private static class ScrollToTop implements Runnable
+	{
+		private ScrollToTop(JComponent viewToUse)
+		{
+			viewToScroll = viewToUse;
+		}
+		public void run()
+		{
+			viewToScroll.scrollRectToVisible(new Rectangle(0,0,0,0));
+		}
+		JComponent viewToScroll;
+	}
+
+	
 }
