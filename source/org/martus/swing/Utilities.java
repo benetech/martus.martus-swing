@@ -190,6 +190,9 @@ public class Utilities
 
 	static public void forceScrollerToTop(JComponent viewToScroll)
 	{
+		//JAVA QUIRK: The Scrolling to Top must happen after construction 
+		//it seems the command is ignored until after all layout has occured.
+		//This is why we must create a new Runnable which is invoked after the GUI construction.
 		SwingUtilities.invokeLater(new ScrollToTop(viewToScroll));
 	}
 
