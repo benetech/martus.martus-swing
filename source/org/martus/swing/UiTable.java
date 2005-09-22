@@ -27,14 +27,13 @@ package org.martus.swing;
 
 import java.awt.Component;
 import java.awt.Dimension;
-
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
-
 import org.martus.util.language.LanguageOptions;
 
 
@@ -49,16 +48,23 @@ public class UiTable extends JTable
 	{
 		super(model);
 		setComponentOrientation(UiLanguageDirection.getComponentOrientation());
-		getTableHeader().setReorderingAllowed(false);
+		setTableHeader(new UiTableHeader(getColumnModel()));
 	}
-
+	
 	public int getRowHeight() 
 	{
 		int defaultRowHeight = super.getRowHeight();
-		if(LanguageOptions.needsLanguagePadding())
-			return defaultRowHeight+EXTRA_PIXELS;
+		defaultRowHeight += getExtraHeightOfRowIfNecessary();
 		return defaultRowHeight;
 	}
+
+	int getExtraHeightOfRowIfNecessary()
+	{
+		if(LanguageOptions.needsLanguagePadding())
+			return EXTRA_PIXELS;
+		return 0;
+	}
+	
 	public void resizeTable()
 	{
 		resizeTable(getModel().getRowCount());
@@ -103,7 +109,7 @@ public class UiTable extends JTable
 		String value = (String)columnToAdjust.getHeaderValue() + padding;
 		return getRenderedWidth(column, value);
 	}
-
+	
 	public int getRenderedWidth(int column, String value) 
 	{
 		TableColumn columnToAdjust = getColumnModel().getColumn(column);
@@ -116,6 +122,23 @@ public class UiTable extends JTable
 		Component c = renderer.getTableCellRendererComponent(this, value, true, true, -1, column);
 		int width = c.getPreferredSize().width;
 		return width;
+	}
+	
+	public class UiTableHeader extends JTableHeader
+	{
+		public UiTableHeader (TableColumnModel model)
+		{
+			super(model);
+			setComponentOrientation(UiLanguageDirection.getComponentOrientation());
+			setReorderingAllowed(false);
+		}
+		
+		public Dimension getPreferredSize()
+		{
+			Dimension d = super.getPreferredSize();
+			d.height += getExtraHeightOfRowIfNecessary();
+			return d;
+		}
 	}
 
 	public TableCellRenderer getCellRenderer(int row, int column)
