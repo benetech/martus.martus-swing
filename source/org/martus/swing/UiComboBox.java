@@ -27,6 +27,7 @@ package org.martus.swing;
 
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.LayoutManager;
 import java.awt.Rectangle;
 import java.awt.event.KeyAdapter;
@@ -36,6 +37,7 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JList;
+import javax.swing.JScrollBar;
 import javax.swing.plaf.ComboBoxUI;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 
@@ -71,7 +73,7 @@ public class UiComboBox extends JComboBox
 		 * If we are running under MS Windows, we'll tweak the button size.
 		 * But under Linux, this would cause the entire combo border to disappear, and 
 		 * when using a padded language the dropdown button is half as wide as it should be */
-		if(Utilities.isMSWindows())
+		if(Utilities.isMSWindows() && LanguageOptions.needsLanguagePadding())
 			ui = new SlimArrowComboBoxUi();
 		super.setUI(ui);
 	}
@@ -97,7 +99,6 @@ public class UiComboBox extends JComboBox
 			}
 			super.keyReleased(e);
 		}
-		
 	}
 
 	private class UiComboListCellRenderer extends DefaultListCellRenderer
@@ -108,13 +109,21 @@ public class UiComboBox extends JComboBox
 			setHorizontalAlignment(UiLanguageDirection.getHorizontalAlignment());
 			return super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 		}
+
+		public Dimension getPreferredSize()
+		{
+			Dimension dimension = super.getPreferredSize();
+			dimension.height += LanguageOptions.getExtraHeightIfNecessary();
+			return dimension;
+		}
+		
 	}
 	
 	class SlimArrowComboBoxUi extends BasicComboBoxUI
 	{
 		protected LayoutManager createLayoutManager()
 		{
-			return new slimArrowLayoutManager();
+			return new SlimArrowLayoutManager();
 		}
 		
 		public JButton getArrowButton()
@@ -122,21 +131,17 @@ public class UiComboBox extends JComboBox
 			return arrowButton;
 		}
 		
-		public class slimArrowLayoutManager extends ComboBoxLayoutManager
+		class SlimArrowLayoutManager extends ComboBoxLayoutManager
 		{
 	        public void layoutContainer(Container parent) 
 	        {
 	        	super.layoutContainer(parent);
-	        	
-		        if(LanguageOptions.needsLanguagePadding()) 
-		        {
-		        	Rectangle rect = getArrowButton().getBounds();
-		        	int slimArrowFactor = 2;
-		        	rect.width /= slimArrowFactor;
-		        	getArrowButton().setBounds(rect);
-		        }
+	        	Rectangle rect = getArrowButton().getBounds();
+	        	JScrollBar scrollbar = new JScrollBar();
+	        	rect.width = scrollbar.getPreferredSize().width;		        	
+	        	getArrowButton().setBounds(rect);
 	        }
 		}
 	}
-	
+
 }
