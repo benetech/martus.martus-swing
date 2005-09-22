@@ -54,16 +54,10 @@ public class UiTable extends JTable
 	public int getRowHeight() 
 	{
 		int defaultRowHeight = super.getRowHeight();
-		defaultRowHeight += getExtraHeightOfRowIfNecessary();
+		defaultRowHeight += LanguageOptions.getExtraHeightIfNecessary();
 		return defaultRowHeight;
 	}
 
-	int getExtraHeightOfRowIfNecessary()
-	{
-		if(LanguageOptions.needsLanguagePadding())
-			return EXTRA_PIXELS;
-		return 0;
-	}
 	
 	public void resizeTable()
 	{
@@ -136,7 +130,7 @@ public class UiTable extends JTable
 		public Dimension getPreferredSize()
 		{
 			Dimension d = super.getPreferredSize();
-			d.height += getExtraHeightOfRowIfNecessary();
+			d.height += LanguageOptions.getExtraHeightIfNecessary();
 			return d;
 		}
 	}
@@ -149,6 +143,4 @@ public class UiTable extends JTable
 		return renderer;
 	}
 
-	private static final int EXTRA_PIXELS = 14;
-	
 }
