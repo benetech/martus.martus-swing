@@ -25,15 +25,18 @@ Boston, MA 02111-1307, USA.
 */
 package org.martus.swing;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.JTable;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
+import org.martus.util.MartusTableModel;
 import org.martus.util.language.LanguageOptions;
 
 
@@ -49,6 +52,14 @@ public class UiTable extends JTable
 		super(model);
 		setComponentOrientation(UiLanguageDirection.getComponentOrientation());
 		setTableHeader(new UiTableHeader(getColumnModel()));
+	}
+	
+	public void setRenderers(MartusTableModel model)
+	{
+		Color disabledBackgroundColor = UIManager.getColor("TextField.inactiveBackground");
+		setDefaultRenderer(Boolean.class, new UiBooleanRenderer(model, disabledBackgroundColor, getDefaultRenderer(Boolean.class)));
+		setDefaultRenderer(Integer.class, new UiRenderer(model, disabledBackgroundColor, getDefaultRenderer(Integer.class)));
+		setDefaultRenderer(String.class, new UiRenderer(model, disabledBackgroundColor, getDefaultRenderer(String.class)));
 	}
 	
 	public int getRowHeight() 
