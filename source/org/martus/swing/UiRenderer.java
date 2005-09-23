@@ -30,11 +30,10 @@ import java.awt.Component;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
-import org.martus.util.MartusTableModel;
 
 public class UiRenderer extends DefaultTableCellRenderer
 {
-	public UiRenderer(MartusTableModel modelToUse, Color disabledBackgroundColorToUse,TableCellRenderer oldRendererToUse)
+	public UiRenderer(UiTableModel modelToUse, Color disabledBackgroundColorToUse,TableCellRenderer oldRendererToUse)
 	{
 		tableModel = modelToUse;
 		oldRenderer = oldRendererToUse;
@@ -61,6 +60,6 @@ public class UiRenderer extends DefaultTableCellRenderer
 
 	Color normalBackgroundColor;
 	Color disabledBackgroundColor;
-	protected MartusTableModel tableModel;
+	protected UiTableModel tableModel;
 	TableCellRenderer oldRenderer;
 }

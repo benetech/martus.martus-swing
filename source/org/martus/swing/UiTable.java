@@ -36,7 +36,6 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
-import org.martus.util.MartusTableModel;
 import org.martus.util.language.LanguageOptions;
 
 
@@ -54,7 +53,7 @@ public class UiTable extends JTable
 		setTableHeader(new UiTableHeader(getColumnModel()));
 	}
 	
-	public void setRenderers(MartusTableModel model)
+	public void setRenderers(UiTableModel model)
 	{
 		Color disabledBackgroundColor = UIManager.getColor("TextField.inactiveBackground");
 		setDefaultRenderer(Boolean.class, new UiBooleanRenderer(model, disabledBackgroundColor, getDefaultRenderer(Boolean.class)));

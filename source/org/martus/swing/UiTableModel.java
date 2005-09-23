@@ -23,28 +23,12 @@ Software Foundation, Inc., 59 Temple Place - Suite 330,
 Boston, MA 02111-1307, USA.
 
 */
+
 package org.martus.swing;
 
-import java.awt.Color;
-import java.awt.Component;
-import javax.swing.JTable;
-import javax.swing.table.TableCellRenderer;
+import javax.swing.table.AbstractTableModel;
 
-
-public class UiBooleanRenderer extends UiRenderer
+abstract public class UiTableModel extends AbstractTableModel 
 {
-	public UiBooleanRenderer(UiTableModel modelToUse, Color disabledBackgroundColorToUse, TableCellRenderer oldRendererToUse)
-	{
-		super(modelToUse, disabledBackgroundColorToUse, oldRendererToUse);
-	}
-
-	public Component getTableCellRendererComponent(
-			JTable tableToUse, Object value,
-			boolean isSelected, boolean hasFocus,
-			int row, int column)
-	{
-		Component cell = super.getTableCellRendererComponent(tableToUse, value, isSelected, hasFocus, row, column);
-		cell.setEnabled(tableModel.isEnabled(row));
-		return cell;
-	}
+	public abstract boolean isEnabled(int row);
 }
