@@ -26,7 +26,7 @@ Boston, MA 02111-1307, USA.
 
 package org.martus.swing;
 
-import javax.swing.JLabel;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 
@@ -38,9 +38,8 @@ public class UiWrappedTextPanel extends UiScrollPane
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
 		textArea.setEditable(false);
-		JLabel colorSource = new JLabel();
-		textArea.setForeground(colorSource.getForeground());
-		textArea.setBackground(colorSource.getBackground());
+		textArea.setForeground(UIManager.getColor("Label.foreground"));
+		textArea.setBackground(UIManager.getColor("Label.background"));
 		
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		setViewportView(textArea);
