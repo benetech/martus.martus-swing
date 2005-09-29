@@ -46,6 +46,7 @@ public class UiRenderer extends DefaultTableCellRenderer
 			int row, int column)
 	{
 		Component cell = oldRenderer.getTableCellRendererComponent(tableToUse, value, isSelected, hasFocus, row, column);
+		cell.setComponentOrientation(UiLanguageDirection.getComponentOrientation());
 		if(normalBackgroundColor == null)
 			normalBackgroundColor = cell.getBackground();
 		if(!isSelected)
