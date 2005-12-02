@@ -35,6 +35,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.Window;
+import java.awt.geom.Point2D;
 
 import javax.swing.JComponent;
 import javax.swing.JDialog;
@@ -194,6 +195,15 @@ public class Utilities
 		//it seems the command is ignored until after all layout has occured.
 		//This is why we must create a new Runnable which is invoked after the GUI construction.
 		SwingUtilities.invokeLater(new ScrollToTop(viewToScroll));
+	}
+
+	public static Point createPointFromPoint2D(Point2D point2D)
+	{
+		// TODO: Is there any cleaner way to convert a Point2D into a Point???
+		int x2D = (int)point2D.getX();
+		int y2D = (int)point2D.getY();
+		Point point = new Point(x2D, y2D);
+		return point;
 	}
 
 	private static class ScrollToTop implements Runnable
