@@ -219,5 +219,34 @@ public class Utilities
 		JComponent viewToScroll;
 	}
 
-	
-}
+
+    /**
+     * Make sure that an on screen component fits on the screen without trying
+     * to re-size it.  This is good to apply to pop-ups after moving them.
+     *
+     * @param window Window to fit in the screen
+     */
+    public static void fitInScreen( Window o ) 
+    {
+        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+        
+        Point oPoint = o.getLocation();
+        int oX = (int)oPoint.getX();
+        int oY = (int)oPoint.getY();
+        
+        int outX = oX + o.getWidth();
+        int outY = oY + o.getHeight();
+
+        if ( outX > screen.getWidth() )
+            oX -= outX - screen.getWidth();
+        
+        if ( outY > screen.getHeight() )
+            oY -= outY - screen.getHeight();
+        
+        oX = Math.max( oX, 0 );
+        oY = Math.max( oY, 0 );
+        
+        o.setLocation( oX, oY );
+    }
+    
+  }
