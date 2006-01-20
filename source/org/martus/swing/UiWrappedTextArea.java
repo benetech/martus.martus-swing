@@ -32,7 +32,7 @@ public class UiWrappedTextArea extends UiTextArea
 {
 	public UiWrappedTextArea(String message)
 	{
-		this(message, 80);
+		this(message, 60);
 	}
 
 
@@ -59,12 +59,6 @@ public class UiWrappedTextArea extends UiTextArea
 			startOfParagraph = endOfParagraph + 1;
 			endOfParagraph = message.indexOf("\n", startOfParagraph);
 		}
-
-		// cushion for safety
-		if(messageLength > maxChars)
-			rows++;
-		if(rows > 5)
-			rows++;
 
 		setRows(rows);
 		setColumns(cols);

@@ -109,7 +109,7 @@ public class UiNotifyDlg extends JDialog implements ActionListener
 
 	private UiWrappedTextArea createWrappedTextArea(String message)
 	{
-		UiWrappedTextArea msgArea = new UiWrappedTextArea(message, 90);
+		UiWrappedTextArea msgArea = new UiWrappedTextArea(message);
 		msgArea.addKeyListener(new TabToOkButton());
 		return msgArea;
 	}

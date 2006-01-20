@@ -28,6 +28,7 @@ package org.martus.swing;
 
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.KeyboardFocusManager;
 import java.util.HashSet;
 import java.util.Set;
@@ -53,6 +54,7 @@ public class UiTextArea extends JTextArea
 	{
 		ComponentOrientation languageOrientation = UiLanguageDirection.getComponentOrientation();
 		setComponentOrientation(languageOrientation);
+		setFont(new Font(FontHandler.defaultFontName, Font.PLAIN, FontHandler.defaultFontSize));
 		if(languageOrientation == ComponentOrientation.RIGHT_TO_LEFT && getText().length()==0)
 		{
 			//Bug in Java's JTextArea

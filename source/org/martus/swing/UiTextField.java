@@ -26,6 +26,7 @@ Boston, MA 02111-1307, USA.
 package org.martus.swing;
 
 import java.awt.Dimension;
+import java.awt.Font;
 
 import javax.swing.JTextField;
 
@@ -35,23 +36,24 @@ public class UiTextField extends JTextField
 	public UiTextField()
 	{
 		super();
-		initalizeOrientation();
+		initalize();
 	}
 	
 	public UiTextField (int columns)
 	{
 		super(columns);
-		initalizeOrientation();
+		initalize();
 	}
 	
 	public UiTextField(String text)
 	{
 		super(text);
-		initalizeOrientation();
+		initalize();
 	}
 
-	private void initalizeOrientation()
+	private void initalize()
 	{
+		setFont(new Font(FontHandler.defaultFontName, Font.PLAIN, FontHandler.defaultFontSize));
 		setComponentOrientation(UiLanguageDirection.getComponentOrientation());
 		setHorizontalAlignment(UiLanguageDirection.getHorizontalAlignment());
 	}
