@@ -49,6 +49,8 @@ public class UiTable extends JTable
 	public UiTable(TableModel model)
 	{
 		super(model);
+		setMaxGridWidth(80);
+		useMaxWidth = false;
 		setComponentOrientation(UiLanguageDirection.getComponentOrientation());
 		setTableHeader(new UiTableHeader(getColumnModel()));
 	}
@@ -68,6 +70,15 @@ public class UiTable extends JTable
 		return defaultRowHeight;
 	}
 
+	public void setMaxGridWidth(int maxGridWidthInCharactersToUse)
+	{
+		maxGridWidthPixels = maxGridWidthInCharactersToUse * 11;
+	}
+	
+	public void useMaxWidth()
+	{
+		useMaxWidth = true;
+	}
 	
 	public void resizeTable()
 	{
@@ -79,6 +90,11 @@ public class UiTable extends JTable
 		Dimension d = getPreferredScrollableViewportSize();
 		int constantRowHeight = getRowHeight() + getRowMargin() ;
 		d.height = rowCount * constantRowHeight;
+		int headerWidth = getHeaderWidth();
+		if(headerWidth < maxGridWidthPixels  && !useMaxWidth)
+			d.width = headerWidth;
+		else
+			d.width = maxGridWidthPixels;
 		setPreferredScrollableViewportSize(d);
 	}
 	
@@ -128,6 +144,16 @@ public class UiTable extends JTable
 		return width;
 	}
 	
+	public int getHeaderWidth()
+	{
+		int width = 0;
+		for(int i = 0; i < getModel().getColumnCount(); ++i)
+		{
+			width += getColumnModel().getColumn(i).getWidth();
+		}
+		return width;
+	}
+	
 	public class UiTableHeader extends JTableHeader
 	{
 		public UiTableHeader (TableColumnModel model)
@@ -152,5 +178,6 @@ public class UiTable extends JTable
 			((DefaultTableCellRenderer)renderer).setHorizontalAlignment(UiLanguageDirection.getHorizontalAlignment());
 		return renderer;
 	}
-
+	int maxGridWidthPixels;
+	boolean useMaxWidth;
 }
