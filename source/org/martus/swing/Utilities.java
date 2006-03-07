@@ -191,10 +191,15 @@ public class Utilities
 
 	static public void forceScrollerToTop(JComponent viewToScroll)
 	{
+		forceScrollerToRect(viewToScroll, new Rectangle(0,0,0,0));
+	}
+
+	static public void forceScrollerToRect(JComponent viewToScroll, Rectangle rect )
+	{
 		//JAVA QUIRK: The Scrolling to Top must happen after construction 
 		//it seems the command is ignored until after all layout has occured.
 		//This is why we must create a new Runnable which is invoked after the GUI construction.
-		SwingUtilities.invokeLater(new ScrollToTop(viewToScroll));
+		SwingUtilities.invokeLater(new ScrollToRect(viewToScroll, rect));
 	}
 
 	public static Point createPointFromPoint2D(Point2D point2D)
@@ -206,18 +211,22 @@ public class Utilities
 		return point;
 	}
 
-	private static class ScrollToTop implements Runnable
+	private static class ScrollToRect implements Runnable
 	{
-		private ScrollToTop(JComponent viewToUse)
+		private ScrollToRect(JComponent viewToUse, Rectangle rectToUse)
 		{
 			viewToScroll = viewToUse;
+			rect = rectToUse;
 		}
 		public void run()
 		{
-			viewToScroll.scrollRectToVisible(new Rectangle(0,0,0,0));
+			viewToScroll.scrollRectToVisible(rect);
 		}
 		JComponent viewToScroll;
+		Rectangle rect;
 	}
+	
+	
 
 
     /**
