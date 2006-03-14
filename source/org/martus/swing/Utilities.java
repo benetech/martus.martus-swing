@@ -36,6 +36,7 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.geom.Point2D;
+import java.util.Vector;
 
 import javax.swing.JComponent;
 import javax.swing.JDialog;
@@ -159,6 +160,28 @@ public class Utilities
 		}
 		
 	}
+	
+	public static String createStringRespectingOrientation(Vector stringParts) 
+	{
+		StringBuffer result = new StringBuffer();
+		int lastIndex = stringParts.size()-1;
+		if(LanguageOptions.isRightToLeftLanguage())
+		{
+			for(int i = lastIndex; i>=0; --i)
+			{
+				result.append(stringParts.get(i));
+			}
+		}
+		else
+		{
+			for(int i = 0; i <= lastIndex; ++i)
+			{
+				result.append(stringParts.get(i));
+			}
+		}
+		return result.toString();
+	}
+	
 
 	public static Dimension addCushionToHeightIfRequired(Dimension d, int extraHeight)
 	{
