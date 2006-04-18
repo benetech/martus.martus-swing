@@ -115,7 +115,7 @@ public class UiNotifyDlg extends JDialog implements ActionListener
 	{
 		UiWrappedTextArea msgArea = new UiWrappedTextArea(message);
 		msgArea.addKeyListener(new TabToOkButton());
-		return msgArea.getWrappedTextPanel();
+		return msgArea;
 	}
 
 	public class TabToOkButton extends KeyAdapter
