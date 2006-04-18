@@ -34,14 +34,21 @@ public class UiWrappedTextArea extends UiTextArea
 	{
 		this(message, 60);
 	}
-
+	
 
 	public UiWrappedTextArea(String message, int maxChars)
+	{
+		this(message, maxChars, 0);
+	}
+
+	public UiWrappedTextArea(String message, int maxChars, int minChars)
 	{
 		super(message);
 		int messageLength = message.length();
 		int cols = messageLength;
 		int rows = 1;
+		if(cols < minChars)
+			cols = minChars;
 		if(cols > maxChars)
 			cols = maxChars;
 
