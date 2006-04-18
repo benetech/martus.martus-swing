@@ -26,7 +26,9 @@ Boston, MA 02111-1307, USA.
 
 package org.martus.swing;
 
+import java.awt.BorderLayout;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class UiWrappedTextArea extends UiTextArea
 {
@@ -44,30 +46,12 @@ public class UiWrappedTextArea extends UiTextArea
 	public UiWrappedTextArea(String message, int maxChars, int minChars)
 	{
 		super(message);
-		int messageLength = message.length();
-		int cols = messageLength;
-		int rows = 1;
+		int cols = message.length();
 		if(cols < minChars)
 			cols = minChars;
 		if(cols > maxChars)
 			cols = maxChars;
 
-		int startOfParagraph = 0;
-		int endOfParagraph = message.indexOf("\n");
-
-		if(endOfParagraph == -1 && messageLength > maxChars)
-			rows = messageLength / maxChars;
-
-		while(endOfParagraph >= 0 )
-		{
-			int paragraphLength = endOfParagraph - startOfParagraph;
-			rows += (paragraphLength / cols) + 1;
-
-			startOfParagraph = endOfParagraph + 1;
-			endOfParagraph = message.indexOf("\n", startOfParagraph);
-		}
-
-		setRows(rows);
 		setColumns(cols);
 		setEditable(false);
 		setFocusable(true);
@@ -78,4 +62,11 @@ public class UiWrappedTextArea extends UiTextArea
 		setForeground(sampleWindow.getForeground());
 	}
 
+	public JPanel getWrappedTextPanel()
+	{
+		JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout());
+		panel.add(this);
+		return panel;
+	}
 }

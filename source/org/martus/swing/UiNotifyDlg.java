@@ -27,6 +27,7 @@ Boston, MA 02111-1307, USA.
 package org.martus.swing;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -36,6 +37,7 @@ import java.util.Map;
 
 import javax.swing.Box;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -65,34 +67,36 @@ public class UiNotifyDlg extends JDialog implements ActionListener
 			
 			setTitle(title);
 			
-			UiVBox vbox = new UiVBox();
-			vbox.addSpace();
+			StringBuffer wrappedContents = new StringBuffer();
 			for(int i = 0 ; i < contents.length ; ++i)
-				vbox.addCentered(createWrappedTextArea(contents[i]));
-			vbox.addSpace();
+			{
+				wrappedContents.append(contents[i]);
+				wrappedContents.append("\n");
+			}
 			
 			ok = new UiButton(buttons[0]);
 			ok.addActionListener(this);
 
 			int numberOfButtons = buttons.length;
-			JButton[] allButtons = new UiButton[numberOfButtons];
-			allButtons[0] = ok;
+			Component[] allButtonsWithCentering = new Component[numberOfButtons+2];
+			allButtonsWithCentering[0] = Box.createHorizontalGlue();
+			allButtonsWithCentering[1] = ok;
 			for(int j = 1 ; j < numberOfButtons; ++j)
 			{
 				JButton button = new UiButton(buttons[j]);
 				button.addActionListener(this);
-				allButtons[j] = button;
+				allButtonsWithCentering[j+1] = button;
 			}
+			allButtonsWithCentering[numberOfButtons+1] = Box.createHorizontalGlue();
 			Box hbox = Box.createHorizontalBox();
-			Utilities.addComponentsRespectingOrientation(hbox, allButtons);
+			Utilities.addComponentsRespectingOrientation(hbox, allButtonsWithCentering);
 			
-			vbox.addCentered(hbox);
-			vbox.addSpace();
 		
-			JPanel panel = new JPanel();	
-			panel.setComponentOrientation(UiLanguageDirection.getComponentOrientation());
+			JPanel panel = new JPanel();
+			panel.setLayout(new BorderLayout());
 			panel.setBorder(new EmptyBorder(5,5,5,5));
-			panel.add(vbox);
+			panel.add(createWrappedTextArea(wrappedContents.toString()), BorderLayout.CENTER);
+			panel.add(hbox, BorderLayout.SOUTH);
 			getContentPane().add(new UiScrollPane(panel), BorderLayout.CENTER);
 			
 			Utilities.centerDlg(this);
@@ -107,11 +111,11 @@ public class UiNotifyDlg extends JDialog implements ActionListener
 		}
 	}
 
-	private UiWrappedTextArea createWrappedTextArea(String message)
+	private JComponent createWrappedTextArea(String message)
 	{
 		UiWrappedTextArea msgArea = new UiWrappedTextArea(message);
 		msgArea.addKeyListener(new TabToOkButton());
-		return msgArea;
+		return msgArea.getWrappedTextPanel();
 	}
 
 	public class TabToOkButton extends KeyAdapter

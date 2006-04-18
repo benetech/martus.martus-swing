@@ -92,6 +92,7 @@ public class Utilities
 
 	static public void centerDlg(JDialog dlg)
 	{
+		dlg.pack();//JAVA bug requires two packs to really get the correct dimensions
 		dlg.pack();
 		Dimension size = dlg.getSize();
 		Dimension viewableScreenSize = getViewableScreenSize();
