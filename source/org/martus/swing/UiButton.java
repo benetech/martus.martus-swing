@@ -28,6 +28,7 @@ package org.martus.swing;
 
 import java.awt.Dimension;
 
+import javax.swing.Action;
 import javax.swing.JButton;
 
 
@@ -38,6 +39,11 @@ public class UiButton extends JButton
 		super(text);
 	}
 
+	public UiButton(Action action)
+	{
+		super(action);
+	}
+	
 	/* 
 	 * This is copied from the horrible hack in JTextArea.
 	 * I'm not sure if there is a better way, but somehow we 
