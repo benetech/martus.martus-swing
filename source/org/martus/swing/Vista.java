@@ -37,14 +37,14 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 /**
- * A simple Pageable class that can
- * split a large drawing canvas over multiple
- * pages.
- *
- * The pages in a canvas are laid out on
- * pages going left to right and then top
- * to bottom.
- */
+* A simple Pageable class that can
+* split a large drawing canvas over multiple
+* pages.
+*
+* The pages in a canvas are laid out on
+* pages going left to right and then top
+* to bottom.
+*/
 public class Vista implements Pageable {
 	private int mNumPagesX;
 	private int mNumPagesY;
@@ -53,7 +53,7 @@ public class Vista implements Pageable {
 	private PageFormat mFormat;
 	/**
 	 * Create a java.awt.Pageable that will print
-	 *  a canvas over as many pages as are needed.
+	 *ï¿½ a canvas over as many pages as are needed.
 	 * A Vista can be passed to PrinterJob.setPageable.
 	 *
 	 * @param width The width, in 1/72nds of an inch,
@@ -140,7 +140,7 @@ public class Vista implements Pageable {
 	 * @return the PageFormat describing the size and
 	 * orientation.
 	 * @exception IndexOutOfBoundsException
-	 * the Pageable  does not contain the requested
+	 * the Pageableï¿½ does not contain the requested
 	 * page.
 	 */
 	public PageFormat getPageFormat(int pageIndex) throws IndexOutOfBoundsException
