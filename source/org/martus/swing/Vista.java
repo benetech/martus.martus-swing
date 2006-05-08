@@ -53,7 +53,7 @@ public class Vista implements Pageable {
 	private PageFormat mFormat;
 	/**
 	 * Create a java.awt.Pageable that will print
-	 *� a canvas over as many pages as are needed.
+	 * a canvas over as many pages as are needed.
 	 * A Vista can be passed to PrinterJob.setPageable.
 	 *
 	 * @param width The width, in 1/72nds of an inch,
@@ -140,7 +140,7 @@ public class Vista implements Pageable {
 	 * @return the PageFormat describing the size and
 	 * orientation.
 	 * @exception IndexOutOfBoundsException
-	 * the Pageable� does not contain the requested
+	 * the Pageable does not contain the requested
 	 * page.
 	 */
 	public PageFormat getPageFormat(int pageIndex) throws IndexOutOfBoundsException
