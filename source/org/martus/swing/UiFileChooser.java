@@ -119,10 +119,10 @@ public class UiFileChooser extends JFileChooser
 			this(null, true);
 		}
 		
-		FileDialogResults(File fileChoosenToUse, boolean wasCancelChoosen)
+		FileDialogResults(File choosenFileToUse, boolean wasCancelChoosen)
 		{
 			cancelChoosen = wasCancelChoosen;
-			fileChoosen = fileChoosenToUse;
+			choosenFile = choosenFileToUse;
 		}
 		
 		public boolean wasCancelChoosen()
@@ -130,19 +130,19 @@ public class UiFileChooser extends JFileChooser
 			return cancelChoosen;
 		}
 
-		public File getFileChoosen()
+		public File getChosenFile()
 		{
-			return fileChoosen;
+			return choosenFile;
 		}
 		
 		public File getCurrentDirectory()
 		{
-			if(fileChoosen == null)
+			if(choosenFile == null)
 				return null;
-			return fileChoosen.getParentFile();
+			return choosenFile.getParentFile();
 		}
 
-		private File fileChoosen;
+		private File choosenFile;
 		private boolean cancelChoosen;
 	}
 	
