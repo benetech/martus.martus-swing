@@ -159,7 +159,7 @@ public class UiFileChooser extends JFileChooser
 		return homeDir;
 	}
 
-	private class DirectoryChangeListener implements PropertyChangeListener 
+	class DirectoryChangeListener implements PropertyChangeListener 
 	{
 		public void propertyChange(PropertyChangeEvent e) 
 		{
@@ -177,7 +177,7 @@ public class UiFileChooser extends JFileChooser
 		setSelectedFile(previouslySelectedFile);
 	}
 
-	private class FileSelectedChangeListener implements PropertyChangeListener
+	class FileSelectedChangeListener implements PropertyChangeListener
 	{
 		public void propertyChange(PropertyChangeEvent e) 
 		{

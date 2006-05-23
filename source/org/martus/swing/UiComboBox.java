@@ -84,7 +84,7 @@ public class UiComboBox extends JComboBox
 		setRenderer(new UiComboListCellRenderer());
 	}
 	
-	private class UiComboBoxKeyListener extends KeyAdapter
+	class UiComboBoxKeyListener extends KeyAdapter
 	{
 		public void keyReleased(KeyEvent e)
 		{
@@ -101,7 +101,7 @@ public class UiComboBox extends JComboBox
 		}
 	}
 
-	private class UiComboListCellRenderer extends DefaultListCellRenderer
+	class UiComboListCellRenderer extends DefaultListCellRenderer
 	{
 		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus)
 		{

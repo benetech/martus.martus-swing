@@ -237,7 +237,7 @@ public class Utilities
 
 	private static class ScrollToRect implements Runnable
 	{
-		private ScrollToRect(JComponent viewToUse, Rectangle rectToUse)
+		ScrollToRect(JComponent viewToUse, Rectangle rectToUse)
 		{
 			viewToScroll = viewToUse;
 			rect = rectToUse;
