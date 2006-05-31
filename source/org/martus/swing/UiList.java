@@ -37,7 +37,7 @@ public class UiList extends JList
 		initalize();
 	}
 
-	public UiList(String[] list)
+	public UiList(Object[] list)
 	{
 		super(list);
 		initalize();
