@@ -177,7 +177,7 @@ public class UiFileChooser extends JFileChooser
 		if ( previouslySelectedFile == null )
 			return; 
 
-		File newSelectedFile = new File(getCurrentDirectory().getPath() + File.separator + previouslySelectedFile.getName());
+		File newSelectedFile = new File(getCurrentDirectory().getPath(), previouslySelectedFile.getName());
 		previouslySelectedFile = newSelectedFile;
 		setSelectedFile(previouslySelectedFile);
 	}
@@ -193,9 +193,7 @@ public class UiFileChooser extends JFileChooser
 	void processFileSelected(PropertyChangeEvent e) 
 	{
 		File selectedFile = getSelectedFile();
-		if ( previouslySelectedFile != null && ( selectedFile == null || selectedFile.isDirectory()) )
-			setSelectedFile(previouslySelectedFile);
-		else 
+		if(!selectedFile.isDirectory())
 			previouslySelectedFile = getSelectedFile();
 	} 
 
