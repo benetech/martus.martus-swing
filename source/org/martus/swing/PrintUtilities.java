@@ -37,6 +37,7 @@ import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 
+import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.swing.RepaintManager;
 
 public class PrintUtilities implements Printable
@@ -57,12 +58,13 @@ public class PrintUtilities implements Printable
 	{
 		PrinterJob printJob = PrinterJob.getPrinterJob();
 		printJob.setPrintable(this);
-		if (printJob.printDialog())
+		HashPrintRequestAttributeSet attributes = new HashPrintRequestAttributeSet();
+		if (printJob.printDialog(attributes))
 			try
 			{
-				System.out.println("Calling PrintJob.print()");
-				printJob.print();
-				System.out.println("End PrintJob.print()");
+//				System.out.println("Calling PrintJob.print()");
+				printJob.print(attributes);
+//				System.out.println("End PrintJob.print()");
 			} catch (PrinterException pe)
 			{
 				System.out.println("Error printing: " + pe);
