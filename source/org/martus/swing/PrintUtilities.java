@@ -96,7 +96,8 @@ public class PrintUtilities implements Printable
 			// shift Graphic to line up with beginning of next page to print
 			g2.translate(0f, -pageIndex * pageHeight);
 			// scale the page so the width fits...
-			g2.scale(scale, scale);
+			if(pageWidth < panelWidth)
+				g2.scale(scale, scale);
 			componentToBePrinted.paint(g2); // repaint the page for printing
 			enableDoubleBuffering(componentToBePrinted);
 			response = Printable.PAGE_EXISTS;
