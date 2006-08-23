@@ -1,5 +1,28 @@
 /*
- * This file was downloaded on 2006-07-26 from:
+
+The Martus(tm) free, social justice documentation and
+monitoring software. Copyright (C) 2006, Beneficent
+Technology, Inc. (Benetech).
+
+Martus is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either
+version 2 of the License, or (at your option) any later
+version with the additions and exceptions described in the
+accompanying Martus license file entitled "license.txt".
+
+It is distributed WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, including warranties of fitness of purpose or
+merchantability.  See the accompanying Martus License and
+GPL license for more details on the required license terms
+for this software.
+
+You should have received a copy of the GNU General Public
+License along with this program; if not, write to the Free
+Software Foundation, Inc., 59 Temple Place - Suite 330,
+Boston, MA 02111-1307, USA.
+
+ * This file is based on one downloaded on 2006-07-26 from:
  *   http://www.developerdotstar.com/community/node/124
  * Based on the text on that page, the author (Rob MacGrogan) 
  * clearly expects and permits this code to be reused without any limitations.
@@ -29,7 +52,6 @@
 package org.martus.swing;
 
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.print.PageFormat;
@@ -62,10 +84,9 @@ public class PrintUtilities implements Printable
 		if (printJob.printDialog(attributes))
 			try
 			{
-//				System.out.println("Calling PrintJob.print()");
 				printJob.print(attributes);
-//				System.out.println("End PrintJob.print()");
-			} catch (PrinterException pe)
+			} 
+			catch (PrinterException pe)
 			{
 				System.out.println("Error printing: " + pe);
 			}
@@ -73,36 +94,57 @@ public class PrintUtilities implements Printable
 	
 	public int print(Graphics g, PageFormat pf, int pageIndex)
 	{
-		int response = NO_SUCH_PAGE;
-		Graphics2D g2 = (Graphics2D) g;
-		// for faster printing, turn off double buffering
-		disableDoubleBuffering(componentToBePrinted);
-		Dimension d = componentToBePrinted.getSize(); // get size of document
-		double panelWidth = d.width; // width in pixels
-		double panelHeight = d.height; // height in pixels
-		double pageHeight = pf.getImageableHeight(); // height of printer
-														// page
-		double pageWidth = pf.getImageableWidth(); // width of printer page
-		double scale = pageWidth / panelWidth;
-		int totalNumPages = (int) Math.ceil(scale * panelHeight / pageHeight);
+		return print(g, pf, pageIndex, componentToBePrinted);
+	}
+	
+	public static int print(Graphics g, PageFormat pf, int pageIndex, Component component)
+	{
 		// make sure not print empty pages
-		if (pageIndex >= totalNumPages)
+		if (pageIndex >= computePageCountWithinComponent(pf, component))
+			return NO_SUCH_PAGE;
+
+		// for faster printing, turn off double buffering
+		disableDoubleBuffering(component);
+		Graphics2D g2 = getTranslatedGraphics(g, pf, pageIndex, component);
+		component.paint(g2);
+		enableDoubleBuffering(component);
+		return Printable.PAGE_EXISTS;
+	}
+
+	public static int computePageCountWithinComponent(PageFormat pf, Component component)
+	{
+		double scale = getScale(pf, component);
+		int componentHeight = component.getHeight();
+		double imageableHeight = pf.getImageableHeight();
+		return (int) Math.ceil(scale * componentHeight / imageableHeight);
+	}
+
+	public static Graphics2D getTranslatedGraphics(Graphics g, PageFormat pf, int pageIndex, Component component)
+	{
+		Graphics2D g2 = (Graphics2D) g;
+		// shift Graphic to line up with beginning of print-imageable region
+		g2.translate(pf.getImageableX(), pf.getImageableY());
+		// shift Graphic to line up with beginning of next page to print
+		g2.translate(0f, -pageIndex * pf.getImageableHeight());
+		// scale the page so the width fits...
+		if(needsScaling(pf, component))
 		{
-			response = NO_SUCH_PAGE;
-		} else
-		{
-			// shift Graphic to line up with beginning of print-imageable region
-			g2.translate(pf.getImageableX(), pf.getImageableY());
-			// shift Graphic to line up with beginning of next page to print
-			g2.translate(0f, -pageIndex * pageHeight);
-			// scale the page so the width fits...
-			if(pageWidth < panelWidth)
-				g2.scale(scale, scale);
-			componentToBePrinted.paint(g2); // repaint the page for printing
-			enableDoubleBuffering(componentToBePrinted);
-			response = Printable.PAGE_EXISTS;
+			double scale = getScale(pf, component);
+			g2.scale(scale, scale);
 		}
-		return response;
+		return g2;
+	}
+
+	private static double getScale(PageFormat pf, Component component)
+	{
+		if(needsScaling(pf, component))
+			return pf.getImageableWidth() / component.getWidth();
+		return 1.0;
+	}
+
+	private static boolean needsScaling(PageFormat pf, Component component)
+	{
+		return pf.getImageableWidth() < component.getWidth();
 	}
 	
 	public static void disableDoubleBuffering(Component c)
