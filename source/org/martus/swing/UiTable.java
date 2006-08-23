@@ -107,6 +107,13 @@ public class UiTable extends JTable
 	{
 		setColumnWidth(column, getColumnHeaderWidth(column));
 	}
+	public void setColumnWidthToHeaderWidthWithPadding(int column)
+	{
+		int columnWidth = getColumnHeaderWidth(column);
+		if(columnWidth < MINIMUM_COLUMN_WIDTH)
+			columnWidth += DEFAULT_PADDING_WIDTH;
+		setColumnWidth(column, columnWidth);
+	}
 
 	public void setColumnMaxWidth(int column, int width) 
 	{
@@ -178,6 +185,9 @@ public class UiTable extends JTable
 			((DefaultTableCellRenderer)renderer).setHorizontalAlignment(UiLanguageDirection.getHorizontalAlignment());
 		return renderer;
 	}
+	
+	final int MINIMUM_COLUMN_WIDTH = 100;
+	final int DEFAULT_PADDING_WIDTH = 40;
 	int maxGridWidthPixels;
 	boolean useMaxWidth;
 }
