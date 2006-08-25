@@ -18,7 +18,6 @@ import java.awt.event.ItemListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
-import javax.swing.JEditorPane;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.text.AttributeSet;
@@ -32,7 +31,7 @@ import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.ImageView;
 import javax.swing.text.html.StyleSheet;
 
-public class HtmlViewer extends JEditorPane implements HyperlinkListener
+public class HtmlViewer extends UiEditorPane implements HyperlinkListener
 {
 	public HtmlViewer(String htmlSource, HyperlinkHandler hyperLinkHandler)
 	{
