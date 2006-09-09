@@ -61,7 +61,7 @@ public class HtmlViewer extends UiEditorPane implements HyperlinkListener
 	{
 		HTMLEditorKit htmlKit = new OurHtmlEditorKit(linkHandler);
 		StyleSheet style = htmlKit.getStyleSheet();
-		style.addRule("body {background: #ffffff;}");
+		customizeStyleSheet(style);
 		htmlKit.setStyleSheet(style);
 		setEditorKit(htmlKit);
 
@@ -70,6 +70,11 @@ public class HtmlViewer extends UiEditorPane implements HyperlinkListener
 		
 		super.setText(text);
 		setCaretPosition(0);
+	}
+
+	protected void customizeStyleSheet(StyleSheet style)
+	{
+		style.addRule("body {background: #ffffff;}");
 	}
 
 	public void hyperlinkUpdate(HyperlinkEvent e)
