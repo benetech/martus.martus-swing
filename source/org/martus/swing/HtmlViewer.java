@@ -31,7 +31,6 @@ import java.awt.Image;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
@@ -201,7 +200,7 @@ public class HtmlViewer extends UiEditorPane implements HyperlinkListener
 		{
 			if(image == null)
 			{
-				ImageIcon icon = new ImageIcon(name);
+				ResourceImageIcon icon = new ResourceImageIcon(name);
 				image = icon.getImage();
 			}
 			return image;
