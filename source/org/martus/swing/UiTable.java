@@ -28,6 +28,7 @@ package org.martus.swing;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -36,6 +37,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
+
 import org.martus.util.language.LanguageOptions;
 
 
@@ -186,6 +188,38 @@ public class UiTable extends JTable
 		return renderer;
 	}
 	
+	public int getSelectedRow()
+	{
+		// NOTE: Java sometimes returns non-empty selected 
+		// rows when the table is empty, so check that first.
+		// JAVA BUG #4247579,  Java 1.4.2 2006-10-27 kbs
+		if(getRowCount() == 0)
+			return -1;
+		
+		return super.getSelectedRow();
+	}
+	
+	public int[] getSelectedRows()
+	{
+		// NOTE: Java sometimes returns non-empty selected 
+		// rows when the table is empty, so check that first.
+		// JAVA BUG #4247579,  Java 1.4.2 2006-10-27 kbs
+		if(getRowCount() == 0)
+			return new int[0];
+		
+		return super.getSelectedRows();
+	}
+
+	public int getSelectedRowCount()
+	{
+		// NOTE: Java sometimes returns non-empty selected 
+		// rows when the table is empty, so check that first.
+		// JAVA BUG #4247579,  Java 1.4.2 2006-10-27 kbs
+		if(getRowCount() == 0)
+			return 0;
+		
+		return super.getSelectedRowCount();
+	}
 	final int MINIMUM_COLUMN_WIDTH = 100;
 	int maxGridWidthPixels;
 	boolean useMaxWidth;
