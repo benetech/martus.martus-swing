@@ -62,21 +62,33 @@ public class UiTextArea extends JTextArea
 			setText(" ");
 			setText("");
 		}
-		SetTabKeyForFocusEvents();
 	}
 
-	private void SetTabKeyForFocusEvents()
+	/* NOTE: Crude hack to get around a weird quirk in Swing.
+	 * We used to set focus traversal keys, but in some cases, 
+	 * when the UiTextArea was added to a panel that was added to a panel
+	 * (not sure of the exact trigger), someone else would RESET our 
+	 * focus traversal keys later, so TAB would not exit the UiTextArea.
+	 * Instead, we will just always return our TAB preferences.
+	 */
+	public Set getFocusTraversalKeys(int category)
 	{
-		Set set = new HashSet(getFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS));
-	    set.clear();
-	    set.add(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_TAB, 0));
-	    setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, set);
-	    set.clear();
-	    set.add(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_TAB,
-	    		 java.awt.event.InputEvent.SHIFT_MASK));
-	    setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, set);
+		int UNSHIFTED = 0;
+		if(category == KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS)
+		    return buildTabKeySet(UNSHIFTED);
+		    
+		if(category == KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS)
+		    return buildTabKeySet(java.awt.event.InputEvent.SHIFT_MASK);
+
+		return super.getFocusTraversalKeys(category);
 	}
 
+	private Set buildTabKeySet(int shiftMask)
+	{
+		Set set = new HashSet();
+		set.add(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_TAB, shiftMask));
+		return set;
+	}
 
 	/* 
 	 * NOTE: This is a horrible hack to work around the fact that a JTextArea
