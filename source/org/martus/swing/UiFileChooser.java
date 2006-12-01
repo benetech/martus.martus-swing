@@ -193,6 +193,10 @@ public class UiFileChooser extends JFileChooser
 	void processFileSelected(PropertyChangeEvent e) 
 	{
 		File selectedFile = getSelectedFile();
+		System.out.println("UiFileChooser.processFileSelected: " + selectedFile);
+		if(selectedFile == null)
+			return;
+		
 		if(!selectedFile.isDirectory())
 			previouslySelectedFile = getSelectedFile();
 	} 
