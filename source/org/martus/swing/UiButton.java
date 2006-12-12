@@ -29,6 +29,7 @@ package org.martus.swing;
 import java.awt.Dimension;
 
 import javax.swing.Action;
+import javax.swing.Icon;
 import javax.swing.JButton;
 
 
@@ -42,6 +43,11 @@ public class UiButton extends JButton
 	public UiButton(Action action)
 	{
 		super(action);
+	}
+	
+	public UiButton(Icon icon)
+	{
+		super(icon);
 	}
 	
 	/* 
