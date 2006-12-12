@@ -26,9 +26,12 @@ Boston, MA 02111-1307, USA.
 
 package org.martus.swing;
 
+import javax.swing.JPopupMenu;
+
 public interface HyperlinkHandler
 {
 	public void linkClicked(String linkDescription);
+	public JPopupMenu getRightClickMenu(String url);
 	public void valueChanged(String widget, String newValue);
 	public void buttonPressed(String buttonName);
 }
