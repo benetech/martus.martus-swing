@@ -32,8 +32,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 import javax.swing.JComboBox;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.HyperlinkEvent;
@@ -41,6 +39,7 @@ import javax.swing.event.HyperlinkListener;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.Document;
 import javax.swing.text.Element;
+import javax.swing.text.JTextComponent;
 import javax.swing.text.View;
 import javax.swing.text.ViewFactory;
 import javax.swing.text.html.FormView;
@@ -141,11 +140,11 @@ public class HtmlViewer extends UiEditorPane implements HyperlinkListener
 				}
 				if(typeAttribute.equals("text"))
 				{
-					return new OurTextFieldView(elem, handler);
+					return new OurTexView(elem, handler);
 				}
 				if(typeAttribute.equals("textarea"))
 				{
-					return new OurTextAreaView(elem, handler);
+					return new OurTexView(elem, handler);
 				}
 			}
 			else if(elem.getName().equals("img"))
@@ -201,10 +200,10 @@ public class HtmlViewer extends UiEditorPane implements HyperlinkListener
 	}
 	
 	
-	
-	class OurTextFieldView extends FormView implements DocumentListener
+	//TODO: eliminate duplicate code between Views (text, textarea)
+	class OurTexView extends FormView implements DocumentListener
 	{
-		public OurTextFieldView(Element elem, HyperlinkHandler handlerToUse)
+		public OurTexView(Element elem, HyperlinkHandler handlerToUse)
 		{
 			super(elem);
 			handler = handlerToUse;
@@ -212,7 +211,7 @@ public class HtmlViewer extends UiEditorPane implements HyperlinkListener
 
 		protected Component createComponent()
 		{
-			textField = (JTextField)super.createComponent();
+			textField = (JTextComponent)super.createComponent();
 			textField.getDocument().addDocumentListener(this);
 			return textField;
 		}
@@ -233,7 +232,8 @@ public class HtmlViewer extends UiEditorPane implements HyperlinkListener
 			notifyHandler();
 		}
 		
-		private void notifyHandler() {
+		private void notifyHandler() 
+		{
 			String name = (String)getElement().getAttributes().getAttribute(HTML.Attribute.NAME);
 			handler.valueChanged(name, textField.getText());
 		}
@@ -243,57 +243,10 @@ public class HtmlViewer extends UiEditorPane implements HyperlinkListener
 		}
 		
 		HyperlinkHandler handler;
-		JTextField textField;
+		JTextComponent textField;
 
 	}
-	
 
-	class OurTextAreaView extends FormView implements DocumentListener
-	{
-		public OurTextAreaView(Element elem, HyperlinkHandler handlerToUse)
-		{
-			super(elem);
-			handler = handlerToUse;
-		}
-
-		protected Component createComponent()
-		{
-			textArea = (JTextArea)super.createComponent();
-			textArea.getDocument().addDocumentListener(this);
-			return textArea;
-		}
-
-		public void changedUpdate(DocumentEvent event) 
-		{
-			notifyHandler();
-		}
-
-
-		public void insertUpdate(DocumentEvent event) 
-		{
-			notifyHandler();
-		}
-
-		public void removeUpdate(DocumentEvent event) 
-		{
-			notifyHandler();
-		}
-		
-		private void notifyHandler() {
-			String name = (String)getElement().getAttributes().getAttribute(HTML.Attribute.NAME);
-			handler.valueChanged(name, textArea.getText());
-		}
-		
-		protected void submitData(String data)
-		{
-		}
-		
-		HyperlinkHandler handler;
-		JTextArea textArea;
-
-	}
-	
-	
 	class OurImageView extends ImageView
 	{
 		public OurImageView(Element elem)
