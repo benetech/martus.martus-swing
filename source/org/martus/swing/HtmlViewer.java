@@ -27,6 +27,7 @@ Boston, MA 02111-1307, USA.
 package org.martus.swing;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -74,6 +75,14 @@ public class HtmlViewer extends UiEditorPane implements HyperlinkListener
 		setCaretPosition(0);
 	}
 
+	
+	public void setFixedWidth( Component component, int width )
+	{
+		component.setSize( new Dimension( width, Short.MAX_VALUE ) );
+		Dimension preferredSize = component.getPreferredSize();
+		component.setPreferredSize( new Dimension( width, preferredSize.height ) );
+	}
+	
 	protected void customizeStyleSheet(StyleSheet style)
 	{
 		style.addRule("body {background: #ffffff;}");
