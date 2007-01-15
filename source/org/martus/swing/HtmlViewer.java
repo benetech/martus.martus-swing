@@ -268,8 +268,15 @@ public class HtmlViewer extends UiEditorPane implements HyperlinkListener
 		{
 			if(image == null)
 			{
-				ResourceImageIcon icon = new ResourceImageIcon(name);
-				image = icon.getImage();
+				try
+				{
+					ResourceImageIcon icon = new ResourceImageIcon(name);
+					image = icon.getImage();
+				}
+				catch(NullPointerException e)
+				{
+					throw new RuntimeException(name, e);
+				}
 			}
 			return image;
 		}
