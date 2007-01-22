@@ -109,6 +109,7 @@ public class Utilities
 	    	size.width = viewableScreenSize.width;
 
 		Rectangle newScreen = getViewableRectangle();
+		dlg.setSize(size);
 		dlg.setLocation(center(size, newScreen));
 
 	}
