@@ -102,18 +102,15 @@ public class Utilities
 		Dimension size = dlg.getSize();
 		Dimension viewableScreenSize = getViewableScreenSize();
 
-		if(size.height < viewableScreenSize.height &&
-	    	size.width < viewableScreenSize.width)
-	    {
-			Rectangle newScreen = getViewableRectangle();
-			dlg.setLocation(center(size, newScreen));
-	    }
-	    else
-	    {
-		    dlg.setSize(viewableScreenSize);
-		    Insets insets = getSystemInsets();
-		    dlg.setLocation(insets.left, insets.top);
-	    }
+		if(size.height > viewableScreenSize.height) 
+			size.height = viewableScreenSize.height;
+			
+	    if (size.width > viewableScreenSize.width)
+	    	size.width = viewableScreenSize.width;
+
+		Rectangle newScreen = getViewableRectangle();
+		dlg.setLocation(center(size, newScreen));
+
 	}
 	
 	static public void centerFrame(Window owner)
