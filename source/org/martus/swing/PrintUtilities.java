@@ -22,6 +22,12 @@ License along with this program; if not, write to the Free
 Software Foundation, Inc., 59 Temple Place - Suite 330,
 Boston, MA 02111-1307, USA.
 
+To the extent this copyrighted software code is used in the 
+Miradi project, it is subject to a royalty-free license to 
+members of the Conservation Measures Partnership when 
+used with the Miradi software as specified in the agreement 
+between Benetech and WCS dated 5/1/05.
+
  * This file is based on one downloaded on 2006-07-26 from:
  *   http://www.developerdotstar.com/community/node/124
  * Based on the text on that page, the author (Rob MacGrogan) 
