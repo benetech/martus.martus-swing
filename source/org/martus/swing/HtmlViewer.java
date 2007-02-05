@@ -32,7 +32,6 @@ between Benetech and WCS dated 5/1/05.
 package org.martus.swing;
 
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -80,13 +79,16 @@ public class HtmlViewer extends UiEditorPane implements HyperlinkListener
 		setCaretPosition(0);
 	}
 
-	
-	public void setFixedWidth( Component component, int width )
-	{
-		component.setSize( new Dimension( width, Short.MAX_VALUE ) );
-		Dimension preferredSize = component.getPreferredSize();
-		component.setPreferredSize( new Dimension( width, preferredSize.height ) );
-	}
+
+// Removed because this is not compatible with Java 1.4
+// Miradi has an improved HtmlFormViewer component that Martus 
+// should start using when it goes to Java 1.5 or 1.6
+//	public void setFixedWidth( Component component, int width )
+//	{
+//		component.setSize( new Dimension( width, Short.MAX_VALUE ) );
+//		Dimension preferredSize = component.getPreferredSize();
+//		component.setPreferredSize( new Dimension( width, preferredSize.height ) );
+//	}
 	
 	protected void customizeStyleSheet(StyleSheet style)
 	{
