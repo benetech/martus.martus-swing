@@ -88,7 +88,9 @@
     		<arg value="&quot;${version.timestamp}&quot;"/>
     	</exec>
 
+    	<!--
     	<echo message="${cvsout}"/>
+    	-->
     	
     	<property name="tag" value="${martus-swing.module}_${version.timestamp}"/>
         <echo message="Tagging entire project as ${tag}"/>
@@ -101,7 +103,9 @@
     		<arg value="${tag}"/>
     	</exec>
 
+    	<!--
     	<echo message="${cvsout}"/>
+    	-->
     	
    </target>
 	
