@@ -19,6 +19,7 @@
     <property name="martus-swing.dist.dir" value="dist"/>
 	<property name="jar.basename" value="martus-swing"/>
 	<property name="jar.filespec" value="${martus-swing.dist.dir}/${jar.basename}.jar"/>
+	<property name="sourcejar.filespec" value="${martus-swing.dist.dir}/${jar.basename}-src.jar"/>
 
 	<property name="cvsroot" value=":extssh:kevins@cvs/var/local/cvs"/>
 
@@ -63,12 +64,16 @@
 	</target>
 
 	<!-- ================================================================== -->
-	<!-- J A R                                                          -->
+	<!-- J A R S                                                       -->
 	<!-- ================================================================== -->
-	<target name="jar" depends="build" description="Create jar">
+	<target name="jars" depends="build" description="Create jars">
 		<mkdir dir="${martus-swing.dist.dir}"/>
 		<jar destfile="${jar.filespec}">
 			<fileset dir="${martus-swing.class.root}" includes="**/*.class"/>
+			<fileset dir="${martus-swing.dist.dir}" includes="version.txt"/>
+		</jar>
+		<jar destfile="${sourcejar.filespec}">
+			<fileset dir="${martus-swing.src.root}" includes="**/*"/>
 			<fileset dir="${martus-swing.dist.dir}" includes="version.txt"/>
 		</jar>
 	</target>
@@ -76,7 +81,7 @@
 	<!-- ================================================================== -->
 	<!-- R E L E A S E                                                      -->
 	<!-- ================================================================== -->
-    <target name="release" depends="jar">
+    <target name="release" depends="jars">
         <echo message="Commiting entire project to cvs..."/>
     	<exec executable='cvs' 
 	    		outputproperty="cvsout"
