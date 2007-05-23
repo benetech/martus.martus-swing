@@ -59,7 +59,7 @@
 			<include name="**/*.java"/>
 		</javac>
 		
-		<echo file="${martus-swing.class.root}/version.txt" append="false" message="${version.timestamp}"/>
+		<echo file="${martus-swing.dist.dir}/version.txt" append="false" message="${version.timestamp}"/>
 	</target>
 
 	<!-- ================================================================== -->
@@ -69,7 +69,7 @@
 		<mkdir dir="${martus-swing.dist.dir}"/>
 		<jar destfile="${jar.filespec}">
 			<fileset dir="${martus-swing.class.root}" includes="**/*.class"/>
-			<fileset dir="${martus-swing.class.root}" includes="version.txt"/>
+			<fileset dir="${martus-swing.dist.dir}" includes="version.txt"/>
 		</jar>
 	</target>
 
