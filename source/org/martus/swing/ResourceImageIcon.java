@@ -36,6 +36,6 @@ public class ResourceImageIcon extends ImageIcon
 {
 	public ResourceImageIcon(String fileName)
 	{
-		super(ResourceImageIcon.class.getResource("/" + fileName));
+		super(ClassLoader.getSystemResource("/" + fileName));
 	}
 }
