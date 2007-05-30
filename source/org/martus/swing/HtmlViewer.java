@@ -35,7 +35,9 @@ import java.awt.Component;
 import java.awt.Image;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.net.URL;
 
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -165,9 +167,14 @@ public class HtmlViewer extends UiEditorPane implements HyperlinkListener
 			}
 			else if(elem.getName().equals("img"))
 			{
-				return new OurImageView(elem);
+				return createImageView(elem);
 			}
 			return super.create(elem);
+		}
+
+		private OurImageView createImageView(Element elem)
+		{
+			return new OurImageView(handler.getClass(), elem);
 		}
 		
 		HyperlinkHandler handler;
@@ -265,9 +272,10 @@ public class HtmlViewer extends UiEditorPane implements HyperlinkListener
 
 	class OurImageView extends ImageView
 	{
-		public OurImageView(Element elem)
+		public OurImageView(Class handlerClassToUse, Element elem)
 		{
 			super(elem);
+			handlerClass = handlerClassToUse;
 			name = (String)elem.getAttributes().getAttribute(HTML.Attribute.SRC);
 		}
 
@@ -277,7 +285,8 @@ public class HtmlViewer extends UiEditorPane implements HyperlinkListener
 			{
 				try
 				{
-					ResourceImageIcon icon = new ResourceImageIcon(name);
+					URL url = handlerClass.getResource("/" + name);
+					ImageIcon icon = new ImageIcon(url);
 					image = icon.getImage();
 				}
 				catch(NullPointerException e)
@@ -289,6 +298,7 @@ public class HtmlViewer extends UiEditorPane implements HyperlinkListener
 		}
 		
 		String name;
+		Class handlerClass;
 		Image image;
 	}
 	
