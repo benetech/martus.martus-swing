@@ -84,19 +84,19 @@ public class UiParagraphPanel extends JPanel
 		if(LanguageOptions.isRightToLeftLanguage())
 		{
 			if(item2.isVisible())
-				add(item2, ParagraphLayout.NEW_PARAGRAPH);
+				add(item2, ParagraphLayout.NEW_PARAGRAPH_TOP);
 			else
 			{
 				Box hBox = Box.createHorizontalBox();
 				hBox.add(new UiLabel(""));
 				hBox.add(item2);
-				add(hBox, ParagraphLayout.NEW_PARAGRAPH);
+				add(hBox, ParagraphLayout.NEW_PARAGRAPH_TOP);
 			}
 			add(item1);
 		}
 		else
 		{
-			add(item1, ParagraphLayout.NEW_PARAGRAPH);
+			add(item1, ParagraphLayout.NEW_PARAGRAPH_TOP);
 			add(item2);
 		}
 	}
