@@ -40,6 +40,10 @@ import javax.swing.JButton;
 
 public class UiButton extends JButton
 {
+	public UiButton()
+	{	
+	}
+	
 	public UiButton(String text)
 	{
 		super(text);
