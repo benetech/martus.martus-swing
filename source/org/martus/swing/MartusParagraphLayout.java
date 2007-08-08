@@ -40,7 +40,13 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Insets;
 
-public class ParagraphLayout extends ConstraintLayout {
+import com.jhlabs.awt.ConstraintLayout;
+
+/*
+ * NOTE: The Martus team added several features, including 
+ * requestedFirstColumnWidth and isFirstFieldOutdented
+ */
+public class MartusParagraphLayout extends ConstraintLayout {
 
 	public final static Integer NEW_PARAGRAPH = new Integer(0x01);
 	public final static Integer NEW_PARAGRAPH_TOP = new Integer(0x02);
@@ -54,11 +60,11 @@ public class ParagraphLayout extends ConstraintLayout {
 	protected int requestedFirstColumnWidth;
 	protected boolean isFirstFieldOutdented;
 
-	public ParagraphLayout() {
+	public MartusParagraphLayout() {
 		this(10, 10, 12, 11, 4, 4);
 	}
 
-	public ParagraphLayout(int hMargin, int vMargin, int hGapMajor, int vGapMajor, int hGapMinor, int vGapMinor) {
+	public MartusParagraphLayout(int hMargin, int vMargin, int hGapMajor, int vGapMajor, int hGapMinor, int vGapMinor) {
 		this.hMargin = hMargin;
 		this.vMargin = vMargin;
 		this.hGapMajor = hGapMajor;

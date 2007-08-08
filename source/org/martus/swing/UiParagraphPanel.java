@@ -39,12 +39,13 @@ import javax.swing.JPanel;
 import org.martus.util.language.LanguageOptions;
 
 
+
 public class UiParagraphPanel extends JPanel
 {
 	public UiParagraphPanel()
 	{
 		super();
-		setLayout(new ParagraphLayout());
+		setLayout(new MartusParagraphLayout());
 		setComponentOrientation(UiLanguageDirection.getComponentOrientation());
 	}
 	
@@ -84,26 +85,26 @@ public class UiParagraphPanel extends JPanel
 		if(LanguageOptions.isRightToLeftLanguage())
 		{
 			if(item2.isVisible())
-				add(item2, ParagraphLayout.NEW_PARAGRAPH_TOP);
+				add(item2, MartusParagraphLayout.NEW_PARAGRAPH_TOP);
 			else
 			{
 				Box hBox = Box.createHorizontalBox();
 				hBox.add(new UiLabel(""));
 				hBox.add(item2);
-				add(hBox, ParagraphLayout.NEW_PARAGRAPH_TOP);
+				add(hBox, MartusParagraphLayout.NEW_PARAGRAPH_TOP);
 			}
 			add(item1);
 		}
 		else
 		{
-			add(item1, ParagraphLayout.NEW_PARAGRAPH_TOP);
+			add(item1, MartusParagraphLayout.NEW_PARAGRAPH_TOP);
 			add(item2);
 		}
 	}
 
-	private ParagraphLayout getParagraphLayout()
+	private MartusParagraphLayout getParagraphLayout()
 	{
-		return ((ParagraphLayout)getLayout());
+		return ((MartusParagraphLayout)getLayout());
 	}
 
 }
