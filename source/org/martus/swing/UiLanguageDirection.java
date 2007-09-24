@@ -30,7 +30,9 @@ between Benetech and WCS dated 5/1/05.
 */
 package org.martus.swing;
 
+import java.awt.Component;
 import java.awt.ComponentOrientation;
+
 import javax.swing.SwingConstants;
 
 import org.martus.util.language.LanguageOptions;
@@ -50,5 +52,12 @@ public class UiLanguageDirection
 		if(LanguageOptions.isRightToLeftLanguage())
 			return SwingConstants.RIGHT;
 		return SwingConstants.LEFT;
+	}
+	
+	static public float getAlignmentX()
+	{
+		if(LanguageOptions.isRightToLeftLanguage())
+			return Component.RIGHT_ALIGNMENT;
+		return Component.LEFT_ALIGNMENT;
 	}
 }
