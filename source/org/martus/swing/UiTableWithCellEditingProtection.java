@@ -30,6 +30,8 @@ between Benetech and WCS dated 5/1/05.
 */
 package org.martus.swing;
 
+import java.util.EventObject;
+
 import javax.swing.CellEditor;
 import javax.swing.event.ChangeEvent;
 import javax.swing.table.TableModel;
@@ -46,6 +48,18 @@ public class UiTableWithCellEditingProtection extends UiTable
 	public UiTableWithCellEditingProtection(TableModel model)
 	{
 		super(model);
+	}
+	
+	public boolean editCellAt(int row, int col, EventObject event) 
+	{
+		tableBeingEdited = this;
+		return super.editCellAt(row, col, event);
+	}
+	
+	public static void savePendingEdits()
+	{
+		if (tableBeingEdited != null)
+			tableBeingEdited.saveCellContents();
 	}
 
 	// This is needed to work around a horrible quirk in swing:
@@ -69,4 +83,6 @@ public class UiTableWithCellEditingProtection extends UiTable
 //		System.out.println("saveCellContents stopCellEditing");
 		editor.stopCellEditing();
 	}
+	
+	private static UiTableWithCellEditingProtection tableBeingEdited = null;
 }
