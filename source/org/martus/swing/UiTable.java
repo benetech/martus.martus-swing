@@ -34,7 +34,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 
-import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
@@ -44,9 +43,10 @@ import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
 import org.martus.util.language.LanguageOptions;
+import org.miradi.utils.TableWithSunBugWorkarounds;
 
 
-public class UiTable extends JTable
+public class UiTable extends TableWithSunBugWorkarounds
 {
 	public UiTable()
 	{
