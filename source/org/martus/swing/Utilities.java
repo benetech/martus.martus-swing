@@ -47,7 +47,6 @@ import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 
 import org.martus.util.language.LanguageOptions;
 
@@ -55,12 +54,22 @@ public class Utilities
 {
 	static public boolean isMacintosh()
 	{
-		return (UIManager.getSystemLookAndFeelClassName().indexOf("MacLookAndFeel") >= 0);
+		return getOperatingSystem().startsWith("mac");
 	}
 
 	static public boolean isMSWindows()
 	{
-		return (UIManager.getSystemLookAndFeelClassName().indexOf("WindowsLookAndFeel") >= 0);
+		return getOperatingSystem().startsWith("win");
+	}
+	
+	static public boolean isLinux()
+	{
+		String os = getOperatingSystem();
+		return os.contains("nix") || os.contains("nux"); 
+	}
+
+	private static String getOperatingSystem() {
+		return System.getProperty("os.name").toLowerCase();
 	}
 
 	static public void maximizeWindow(JFrame window)
