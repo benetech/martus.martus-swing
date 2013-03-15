@@ -59,7 +59,6 @@ public class UiTextArea extends JTextArea
 	{
 		ComponentOrientation languageOrientation = UiLanguageDirection.getComponentOrientation();
 		setComponentOrientation(languageOrientation);
-		setFont(new Font(FontHandler.defaultFontName, Font.PLAIN, FontHandler.defaultFontSize));
 		if(languageOrientation == ComponentOrientation.RIGHT_TO_LEFT && getText().length()==0)
 		{
 			//Bug in Java's JTextArea
