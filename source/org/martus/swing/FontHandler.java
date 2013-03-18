@@ -41,6 +41,7 @@ public class FontHandler
 	// until we decide what to do in the long run. 2005-11-30 kbs
 	public static final int defaultFontSize = getAsInteger(System.getProperty("inputfontsize"), 13);
 	public static final String defaultFontName = getAsString(System.getProperty("inputfontname"), "SansSerif");
+	public static final String BURMESE_FONT = "Zawgyi-One";
 
 	public static String getAsString(String candidate, String defaultValue)
 	{
@@ -65,10 +66,10 @@ public class FontHandler
 
 	public static Font getDefaultFont()
 	{
-		Font result = null;
-		if (! useZawgyi)
-			result = new Font(FontHandler.defaultFontName, Font.PLAIN, FontHandler.defaultFontSize);
-		return result;
+		if (useZawgyi)
+			return new Font(BURMESE_FONT, Font.PLAIN, FontHandler.defaultFontSize);
+		else
+			return new Font(FontHandler.defaultFontName, Font.PLAIN, FontHandler.defaultFontSize);
 	}
 
 

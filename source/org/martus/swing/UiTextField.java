@@ -58,9 +58,7 @@ public class UiTextField extends JTextField
 
 	private void initalize()
 	{
-		Font newDefaultFont = FontHandler.getDefaultFont();
-		if (null != newDefaultFont)
-			setFont(newDefaultFont);
+		setFont(FontHandler.getDefaultFont());
 		setComponentOrientation(UiLanguageDirection.getComponentOrientation());
 		setHorizontalAlignment(UiLanguageDirection.getHorizontalAlignment());
 	}
