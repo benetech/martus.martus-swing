@@ -31,6 +31,8 @@ between Benetech and WCS dated 5/1/05.
 
 package org.martus.swing;
 
+import java.awt.*;
+
 public class FontHandler
 {
 
@@ -60,5 +62,21 @@ public class FontHandler
 		}
 	}
 	// NOTE: End of Kurdish testing hack
+
+	public static Font getDefaultFont()
+	{
+		Font result = null;
+		if (! useZawgyi)
+			result = new Font(FontHandler.defaultFontName, Font.PLAIN, FontHandler.defaultFontSize);
+		return result;
+	}
+
+
+	public static void setUseZawgyi(boolean useZawgyi)
+	{
+		FontHandler.useZawgyi = useZawgyi;
+	}
+
+	private static boolean useZawgyi;
 
 }
