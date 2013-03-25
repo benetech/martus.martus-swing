@@ -78,6 +78,11 @@ public class FontHandler
 		FontHandler.useZawgyi = useZawgyi;
 	}
 
+	public static boolean getUseZawgyi()
+	{
+		return useZawgyi;
+	}
+
 	private static boolean useZawgyi = true;
 
 }
