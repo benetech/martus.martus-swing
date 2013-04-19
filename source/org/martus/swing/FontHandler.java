@@ -66,7 +66,7 @@ public class FontHandler
 
 	public static Font getDefaultFont()
 	{
-		if (useZawgyi)
+		if (useZawgyiFont)
 			return new Font(BURMESE_FONT, Font.PLAIN, FontHandler.defaultFontSize);
 		else
 			return new Font(FontHandler.defaultFontName, Font.PLAIN, FontHandler.defaultFontSize);
@@ -74,22 +74,27 @@ public class FontHandler
 
 	public static String getDefaultFontName()
 	{
-		if (useZawgyi)
+		if (useZawgyiFont)
 			return BURMESE_FONT;
 		else
 			return defaultFontName;
 	}
 
-	public static void setUseZawgyi(boolean useZawgyi)
+	public static void setUseZawgyiFont(boolean useZawgyi)
 	{
-		FontHandler.useZawgyi = useZawgyi;
+		FontHandler.useZawgyiFont = useZawgyi;
 	}
 
-	public static boolean getUseZawgyi()
+	public static boolean isDoZawgyiConversion()
 	{
-		return useZawgyi;
+		return doZawgyiConversion;
 	}
 
-	private static boolean useZawgyi = true;
+	public static void setDoZawgyiConversion(boolean doZawgyiConversion)
+	{
+		FontHandler.doZawgyiConversion = doZawgyiConversion;
+	}
 
+	private static boolean useZawgyiFont = false;
+	private static boolean doZawgyiConversion = true;
 }
