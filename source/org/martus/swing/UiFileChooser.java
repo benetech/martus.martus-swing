@@ -32,8 +32,6 @@ between Benetech and WCS dated 5/1/05.
 package org.martus.swing;
 
 import java.awt.Component;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.File;
 
 import javax.swing.JFileChooser;
@@ -53,9 +51,6 @@ public class UiFileChooser extends JFileChooser
 	{
 		super();
 		setComponentOrientation(UiLanguageDirection.getComponentOrientation());
-		addPropertyChangeListener(JFileChooser.DIRECTORY_CHANGED_PROPERTY,new DirectoryChangeListener());
-		addPropertyChangeListener(JFileChooser.SELECTED_FILE_CHANGED_PROPERTY, new FileSelectedChangeListener());
-		setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		if(title != null)
 			setDialogTitle(title);
 
@@ -169,43 +164,5 @@ public class UiFileChooser extends JFileChooser
 		return homeDir;
 	}
 
-	class DirectoryChangeListener implements PropertyChangeListener 
-	{
-		public void propertyChange(PropertyChangeEvent e) 
-		{
-			processDirChanged(e);
-		}
-	}
-
-	void processDirChanged(PropertyChangeEvent e) 
-	{
-		if ( previouslySelectedFile == null )
-			return; 
-
-		File newSelectedFile = new File(getCurrentDirectory().getPath(), previouslySelectedFile.getName());
-		previouslySelectedFile = newSelectedFile;
-		setSelectedFile(previouslySelectedFile);
-	}
-
-	class FileSelectedChangeListener implements PropertyChangeListener
-	{
-		public void propertyChange(PropertyChangeEvent e) 
-		{
-			processFileSelected(e);
-		}
-	}
-	
-	void processFileSelected(PropertyChangeEvent e) 
-	{
-		File selectedFile = getSelectedFile();
-		System.out.println("UiFileChooser.processFileSelected: " + selectedFile);
-		if(selectedFile == null)
-			return;
-		
-		if(!selectedFile.isDirectory())
-			previouslySelectedFile = getSelectedFile();
-	} 
-
 	static public final File NO_FILE_SELECTED = null;
-	private File previouslySelectedFile = null;
 }
