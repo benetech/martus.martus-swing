@@ -37,10 +37,6 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
-//This implementation is needed because of a Java bug 
-//which by clicking on a directory changes the file name 
-//to be saved to that of the directory name.
-
 public class UiFileChooser extends JFileChooser
 {
 	private UiFileChooser()
@@ -81,6 +77,15 @@ public class UiFileChooser extends JFileChooser
 	static public FileDialogResults displayFileSaveDialog(Component owner, String title, File currentlySelectedFile)
 	{
 		UiFileChooser chooser = new UiFileChooser(title, currentlySelectedFile, null, null, null);
+		return getFileResults(chooser.showSaveDialog(owner), chooser);
+	}
+	
+	static public FileDialogResults displayFileSaveDialog(Component owner, String title, File directory, String defaultFilename, String buttonLabel, FileFilter filterToUse)
+	{
+		File file = null;
+		if(defaultFilename != null && defaultFilename.length() > 0)
+			file = new File(directory, defaultFilename);
+		UiFileChooser chooser = new UiFileChooser(title, file, directory, buttonLabel, filterToUse);
 		return getFileResults(chooser.showSaveDialog(owner), chooser);
 	}
 	
