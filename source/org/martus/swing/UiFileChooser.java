@@ -68,12 +68,6 @@ public class UiFileChooser extends JFileChooser
 		return displayFileSaveDialog(owner, title, getHomeDirectoryFile(newFileName));
 	}
 	
-	static public FileDialogResults displayFileSaveDialog(Component owner, String title, File currentDirectory, FileFilter filterToUse)
-	{
-		UiFileChooser chooser = new UiFileChooser(title, null, currentDirectory, null, filterToUse);
-		return getFileResults(chooser.showSaveDialog(owner), chooser);
-	}
-
 	static public FileDialogResults displayFileSaveDialog(Component owner, String title, File currentlySelectedFile)
 	{
 		UiFileChooser chooser = new UiFileChooser(title, currentlySelectedFile, null, null, null);
@@ -90,11 +84,6 @@ public class UiFileChooser extends JFileChooser
 		return getFileResults(chooser.showSaveDialog(owner), chooser);
 	}
 	
-	static public FileDialogResults displayFileOpenDialog(Component owner, String title, String currentlySelectedFileName)
-	{
-		return displayFileOpenDialog(owner, title, getHomeDirectoryFile(currentlySelectedFileName), null, null, null);
-	}
-	
 	static public FileDialogResults displayFileOpenDialog(Component owner, String title, File currentDirectory, String buttonLabel, FileFilter filterToUse)
 	{
 		return displayFileOpenDialog(owner, title, null, currentDirectory, buttonLabel, filterToUse);
@@ -105,11 +94,6 @@ public class UiFileChooser extends JFileChooser
 		return displayFileOpenDialog(owner, title, currentlySelectedFile, null, null, null);
 	}
 
-	static public FileDialogResults displayFileOpenDialog(Component owner, String title, File currentlySelectedFile, File currentDirectory)
-	{
-		return displayFileOpenDialog(owner, title, currentlySelectedFile, currentDirectory, null, null);
-	}
-	
 	static public FileDialogResults displayFileOpenDialog(Component owner, String title, File currentlySelectedFile, File currentDirectory, String buttonLabel, FileFilter filterToUse)
 	{
 		UiFileChooser chooser = new UiFileChooser(title, currentlySelectedFile, currentDirectory, buttonLabel, filterToUse);
