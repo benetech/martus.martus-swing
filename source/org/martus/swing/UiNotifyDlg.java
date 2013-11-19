@@ -104,6 +104,8 @@ public class UiNotifyDlg extends JDialog implements ActionListener
 			panel.add(hbox, BorderLayout.SOUTH);
 			getContentPane().add(new UiScrollPane(panel), BorderLayout.CENTER);
 			
+			pack();
+			
 			Utilities.centerDlg(this);
 			setResizable(true);
 			getRootPane().setDefaultButton(ok);
