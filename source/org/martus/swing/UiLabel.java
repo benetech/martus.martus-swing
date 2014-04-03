@@ -32,6 +32,7 @@ between Benetech and WCS dated 5/1/05.
 package org.martus.swing;
 
 import java.awt.Dimension;
+import java.awt.Font;
 
 import javax.swing.Icon;
 import javax.swing.JLabel;
@@ -69,6 +70,16 @@ public class UiLabel extends JLabel
 		setHorizontalAlignment(UiLanguageDirection.getHorizontalAlignment());
 	}
 	
+	public void makeBold()
+	{
+		setFont(getFont().deriveFont(Font.BOLD));
+	}
+	
+	public void makeHeading()
+	{
+		setFont(getFont().deriveFont(LargeFontSizeForHeadings));
+		makeBold();
+	}
 
 	/* 
 	 * This is copied from the horrible hack in JTextArea.
@@ -97,5 +108,5 @@ public class UiLabel extends JLabel
 	}
 	
 	final int EXTRA_PIXELS = 14;
-
+	final float LargeFontSizeForHeadings = 18.0f;
 }
