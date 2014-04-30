@@ -33,6 +33,7 @@ package org.martus.swing;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -44,7 +45,6 @@ import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -55,12 +55,12 @@ import org.martus.util.TokenReplacement.TokenInvalidException;
 public class UiNotifyDlg extends JDialog implements ActionListener
 {
 
-	public UiNotifyDlg(JFrame owner, String title, String[] contents, String[] buttons)
+	public UiNotifyDlg(Frame owner, String title, String[] contents, String[] buttons)
 	{
 		this(owner, title, contents, buttons, new HashMap());
 	}
 	
-	public UiNotifyDlg(JFrame owner, String title, String[] contents, String[] buttons, Map tokenReplacement)
+	public UiNotifyDlg(Frame owner, String title, String[] contents, String[] buttons, Map tokenReplacement)
 	{
 		super(owner, title , true);
 		setComponentOrientation(UiLanguageDirection.getComponentOrientation());
