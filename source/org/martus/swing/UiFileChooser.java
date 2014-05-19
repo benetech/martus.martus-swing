@@ -87,12 +87,7 @@ public class UiFileChooser extends JFileChooser
 	
 	static public FileDialogResults displayFileOpenDialog(Component owner, String title, File currentDirectory, String buttonLabel, FileFilter filterToUse)
 	{
-		return displayFileOpenDialog(owner, title, null, currentDirectory, buttonLabel, filterToUse);
-	}
-	
-	static public FileDialogResults displayFileOpenDialog(Component owner, String title, File currentlySelectedFile, File currentDirectory, String buttonLabel, FileFilter filterToUse)
-	{
-		UiFileChooser chooser = new UiFileChooser(title, currentlySelectedFile, currentDirectory, buttonLabel, filterToUse);
+		UiFileChooser chooser = new UiFileChooser(title, null, currentDirectory, buttonLabel, filterToUse);
 		return getFileResults(chooser.showOpenDialog(owner), chooser);
 	}
 	
