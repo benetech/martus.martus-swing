@@ -33,7 +33,6 @@ package org.martus.swing;
 
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.KeyboardFocusManager;
 import java.util.HashSet;
 import java.util.Set;

@@ -31,7 +31,6 @@ between Benetech and WCS dated 5/1/05.
 package org.martus.swing;
 
 import java.awt.Dimension;
-import java.awt.Font;
 
 import javax.swing.JTextField;
 
