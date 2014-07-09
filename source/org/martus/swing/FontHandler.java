@@ -68,16 +68,16 @@ public class FontHandler
 	{
 		if (useZawgyiFont)
 			return new Font(BURMESE_FONT, Font.PLAIN, FontHandler.defaultFontSize);
-		else
-			return new Font(FontHandler.defaultFontName, Font.PLAIN, FontHandler.defaultFontSize);
+
+		return new Font(FontHandler.defaultFontName, Font.PLAIN, FontHandler.defaultFontSize);
 	}
 
 	public static String getDefaultFontName()
 	{
 		if (useZawgyiFont)
 			return BURMESE_FONT;
-		else
-			return defaultFontName;
+
+		return defaultFontName;
 	}
 
 	public static void setUseZawgyiFont(boolean useZawgyi)
