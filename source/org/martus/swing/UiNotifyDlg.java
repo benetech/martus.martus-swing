@@ -63,6 +63,11 @@ public class UiNotifyDlg extends JDialog implements ActionListener
 	public UiNotifyDlg(Frame owner, String title, String[] contents, String[] buttons, Map tokenReplacement)
 	{
 		super(owner, title , true);
+		initialize(title, contents, buttons, tokenReplacement);
+	}
+
+	public void initialize(String title, String[] contents, String[] buttons,
+			Map tokenReplacement) {
 		setComponentOrientation(UiLanguageDirection.getComponentOrientation());
 		try
 		{
