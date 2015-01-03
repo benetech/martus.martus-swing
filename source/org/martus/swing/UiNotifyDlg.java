@@ -67,6 +67,11 @@ public class UiNotifyDlg extends JDialog implements ActionListener
 		initialize(title, contents, buttons, tokenReplacement);
 	}
 
+	public UiNotifyDlg(String title, String[] contents, String[] buttons)
+	{
+		this(title, contents, buttons, new HashMap());
+	}
+	
 	public UiNotifyDlg(String title, String[] contents, String[] buttons, Map tokenReplacement)
 	{
 		// NOTE: Pass (Dialog)null to force this window to show up in the Task Bar
