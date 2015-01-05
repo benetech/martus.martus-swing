@@ -103,7 +103,7 @@ public class Utilities
 		}
 	}
 
-	static public void centerDlg(Window dlg)
+	static public void packAndCenterWindow(Window dlg)
 	{
 		dlg.pack();//JAVA bug requires two packs to really get the correct dimensions
 		dlg.pack();

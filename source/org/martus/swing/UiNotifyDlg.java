@@ -124,7 +124,7 @@ public class UiNotifyDlg extends JDialog implements ActionListener
 			
 			pack();
 			
-			Utilities.centerDlg(this);
+			Utilities.packAndCenterWindow(this);
 			setResizable(true);
 			getRootPane().setDefaultButton(ok);
 			ok.requestFocus(true);
