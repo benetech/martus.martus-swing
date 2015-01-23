@@ -44,7 +44,6 @@ import java.awt.geom.Point2D;
 import java.util.Vector;
 
 import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -104,7 +103,7 @@ public class Utilities
 		}
 	}
 
-	static public void centerDlg(JDialog dlg)
+	static public void packAndCenterWindow(Window dlg)
 	{
 		dlg.pack();//JAVA bug requires two packs to really get the correct dimensions
 		dlg.pack();
