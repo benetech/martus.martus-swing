@@ -33,6 +33,7 @@ package org.martus.swing;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dialog;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -63,6 +64,23 @@ public class UiNotifyDlg extends JDialog implements ActionListener
 	public UiNotifyDlg(Frame owner, String title, String[] contents, String[] buttons, Map tokenReplacement)
 	{
 		super(owner, title , true);
+		initialize(title, contents, buttons, tokenReplacement);
+	}
+
+	public UiNotifyDlg(String title, String[] contents, String[] buttons)
+	{
+		this(title, contents, buttons, new HashMap());
+	}
+	
+	public UiNotifyDlg(String title, String[] contents, String[] buttons, Map tokenReplacement)
+	{
+		// NOTE: Pass (Dialog)null to force this window to show up in the Task Bar
+		super((Dialog)null, title , true);
+		initialize(title, contents, buttons, tokenReplacement);
+	}
+
+	public void initialize(String title, String[] contents, String[] buttons,
+			Map tokenReplacement) {
 		setComponentOrientation(UiLanguageDirection.getComponentOrientation());
 		try
 		{
@@ -106,7 +124,7 @@ public class UiNotifyDlg extends JDialog implements ActionListener
 			
 			pack();
 			
-			Utilities.centerDlg(this);
+			Utilities.packAndCenterWindow(this);
 			setResizable(true);
 			getRootPane().setDefaultButton(ok);
 			ok.requestFocus(true);
