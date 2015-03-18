@@ -76,6 +76,7 @@ public class UiNotifyDlg extends JDialog implements ActionListener
 	{
 		// NOTE: Pass (Dialog)null to force this window to show up in the Task Bar
 		super((Dialog)null, title , true);
+		setIconImage(Utilities.getMartusIconImage());
 		initialize(title, contents, buttons, tokenReplacement);
 	}
 
