@@ -35,14 +35,17 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.GraphicsConfiguration;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.geom.Point2D;
+import java.net.URL;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -293,4 +296,13 @@ public class Utilities
         o.setLocation( oX, oY );
     }
     
+	static public Image getMartusIconImage()
+	{
+		URL imageURL = Utilities.class.getResource("MartusLogo.png");
+		if(imageURL == null)
+			return null;
+		ImageIcon imageicon = new ImageIcon(imageURL);
+		return imageicon.getImage();
+	}
+
   }
