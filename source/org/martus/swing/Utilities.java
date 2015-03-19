@@ -298,10 +298,14 @@ public class Utilities
     
 	static public Image getMartusIconImage()
 	{
-		URL imageURL = Utilities.class.getResource("MartusLogo.png");
+		URL imageURL = Utilities.class.getResource("/org/martus/swing/MartusLogo.png");
 		if(imageURL == null)
+		{
+			System.out.println("getMartusIconImage Failed to find MartusLogo.png");
 			return null;
+		}
 		ImageIcon imageicon = new ImageIcon(imageURL);
+		System.out.println("getMartusIconImage found"); //TODO remove after testing
 		return imageicon.getImage();
 	}
 
